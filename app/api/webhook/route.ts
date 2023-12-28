@@ -4,6 +4,7 @@ import { WebhookEvent } from '@clerk/nextjs/server'
 import { IUser } from '@/lib/database/models/user.model'
 import { createUser } from '@/lib/database/actions/user.actions'
 import { clerkClient } from '@clerk/nextjs'
+import { NextResponse } from "next/server";
  
 export async function POST(req: Request) {
  
@@ -54,6 +55,8 @@ export async function POST(req: Request) {
   const { id } = evt.data;
   const eventType = evt.type;
 
+  console.log(eventType)
+
   if (eventType === 'user.created') {
     const { id, username, first_name, last_name, image_url, email_addresses } = evt.data;
 
@@ -68,6 +71,8 @@ export async function POST(req: Request) {
 
     const newUser = await createUser(user);
 
+    console.log(newUser)
+
     if (newUser) {
       await clerkClient.users.updateUserMetadata(id, {
         publicMetadata: {
@@ -75,6 +80,7 @@ export async function POST(req: Request) {
         }
       })
     }
+    return NextResponse.json({ message: 'OK', user: newUser });
   }
  
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`)
