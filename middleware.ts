@@ -7,7 +7,9 @@ export default authMiddleware({
   publicRoutes: [
     "/",
     "/contact",
-    "/api/webhook/clerk"
+    "/artists",
+    "/api/webhook/clerk",
+    "/events"
   ],
   // ignoredRoutes: [
   //   "/api/webhook/clerk"
