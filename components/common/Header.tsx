@@ -6,8 +6,10 @@ import { Button } from "../ui/button";
 
 const Header = () => {
   return (
-    <div className="fixed top-0 w-full p-8 flex items-center justify-evenly bg-transparent z-10">
-      <Image alt="eventune-logo" src="/assets/icons/logo.png" width={80} height={80} />
+    <div className="fixed top-0 z-10 flex items-center w-full p-4 bg-transparent justify-evenly">
+      <Link href="/">
+        <Image alt="eventune-logo" src="/assets/icons/logo.png" width={48} height={48} />
+      </Link>
       <div>
         <Navigations />
       </div>

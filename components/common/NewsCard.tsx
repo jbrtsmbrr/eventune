@@ -1,3 +1,4 @@
+import { connect } from '@/lib/database'
 import Image from 'next/image'
 import React from 'react'
 
@@ -8,7 +9,8 @@ type Author = {
 
 type CardProps = { type?: string, headline: string, imageUrl: string, author: Author }
 
-const NewsCard = ({ type = "blog", headline, imageUrl, author }: CardProps) => {
+const NewsCard = async ({ type = "blog", headline, imageUrl, author }: CardProps) => {
+  await connect()
   return (
     <div className='group relative flex flex-col aspect-video rounded-sm shadow-lg h-full w-full'>
       <div className='relative overflow-hidden min-h-[200px] h-1/2'>

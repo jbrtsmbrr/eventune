@@ -1,7 +1,12 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
- 
+
+li.react-datepicker__time-list-item--selected,
+.react-datepicker__day--selected {
+  background-color: rgb(107 33 168) !important;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -72,5 +77,20 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .form-event-shadow {
+    @apply shadow-[0px_0px_0px_1px_rgba(255,255,255,0.25)];
+  }
+  .form-event-bg {
+    @apply bg-black bg-opacity-25;
+  }
+  .input-event-shadow {
+    @apply shadow-[0px_0px_0px_1px_rgba(255,255,255,0.07)];
+  }
+  .input-event-bg {
+    @apply bg-black bg-opacity-45;
   }
 }
