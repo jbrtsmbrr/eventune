@@ -9,7 +9,8 @@ export default authMiddleware({
     "/contact",
     "/artists",
     "/api/webhook/clerk",
-    "/events"
+    "/events",
+    "/api/uploadthing"
   ],
   // ignoredRoutes: [
   //   "/api/webhook/clerk"

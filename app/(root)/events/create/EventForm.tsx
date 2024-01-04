@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { EventSchemaValidator } from '@/lib/validator'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import DatePicker from "react-datepicker";
@@ -15,8 +15,11 @@ import Image from 'next/image'
 import { Textarea } from '@/components/ui/textarea'
 import { createEvent } from '@/lib/database/actions/event.action'
 import { Checkbox } from '@/components/ui/checkbox'
+import ImageUploader from './ImageUploader'
+import { useUploadThing } from '@/utils/uploadthing'
 
 const EventForm = () => {
+  const [files, setFiles] = useState<File[]>([]);
   const eventForm = useForm<z.infer<typeof EventSchemaValidator>>({
     resolver: zodResolver(EventSchemaValidator),
     defaultValues: {
@@ -24,18 +27,34 @@ const EventForm = () => {
       description: "",
       startDate: new Date(),
       endDate: new Date(),
-      imageUrl: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSYscfUBUbqwGd_DHVhG-ZjCOD7MUpxp4uhNe7toUg4ug&s",
-      location: undefined,
+      imageUrl: "",
+      location: "",
       price: 0,
       isFree: false
     }
   })
 
-  function onSubmit(values: z.infer<typeof EventSchemaValidator>) {
+  const { startUpload } = useUploadThing("eventImageUploaderEndpoint");
+
+  async function onSubmit(values: z.infer<typeof EventSchemaValidator>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
     // return console.log(values)
-    createEvent(values);
+    let newImageUrl = values.imageUrl;
+    if (files.length > 0) {
+      const readyFiles = await startUpload(files);
+
+      if (!readyFiles) {
+        eventForm.setError("imageUrl", { message: "Something went while uploading the image." })
+        return;
+      }
+
+      newImageUrl = readyFiles[0].url;
+    }
+
+    console.log({ ...values, imageUrl: newImageUrl })
+
+    await createEvent({ ...values, imageUrl: newImageUrl });
     eventForm.reset();
   }
 
@@ -58,30 +77,46 @@ const EventForm = () => {
             </FormItem>
           )}
         />
-        <FormField
-          control={eventForm.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Textarea value={field.value} placeholder='Event Description' autoComplete='off'
-                  className='h-auto text-sm bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 text-gray-300 outline-0 p-4 input-event-bg rounded-sm input-event-shadow'
-                  onChange={field.onChange} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className='flex flex-col gap-3 md:flex-row'>
+          <FormField
+            control={eventForm.control}
+            name="description"
+            render={({ field }) => (
+              <FormItem className='flex-1 relative h-full w-full'>
+                <FormControl>
+                  <Textarea value={field.value} placeholder='Event Description' autoComplete='off'
+                    className='text-sm bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 text-gray-300 outline-0 p-4 input-event-bg rounded-sm input-event-shadow'
+                    onChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={eventForm.control}
+            name="imageUrl"
+            render={({ field }) => (
+              <FormItem className='relative flex-1'>
+                <FormControl>
+                  <ImageUploader imageUrl={field.value} onChange={field.onChange} setFiles={setFiles} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
         <div className="flex flex-col gap-3 md:flex-row">
           <FormField
             control={eventForm.control}
             name="startDate"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className='flex-1'>
                 <FormControl>
                   <div className='flex items-center gap-2 input-event-bg p-2 px-4 rounded-sm input-event-shadow'>
                     <Image src="/assets/icons/icons8-calendar-50.png" alt="ticket" width={14} height={14} />
-                    <p className="text-sm text-gray-300">Start Date:</p>
+                    <p className="text-sm text-gray-300">Start:</p>
                     <DatePicker
                       name="startDate"
                       className='text-sm bg-transparent text-gray-300 outline-0'
@@ -99,11 +134,11 @@ const EventForm = () => {
             control={eventForm.control}
             name="endDate"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="flex-1">
                 <FormControl>
                   <div className='flex items-center gap-2 input-event-bg p-2 px-4 rounded-sm input-event-shadow'>
                     <Image src="/assets/icons/icons8-calendar-50.png" alt="ticket" width={14} height={14} />
-                    <p className="text-sm text-gray-300">End Date:</p>
+                    <p className="text-sm text-gray-300">End:</p>
                     <DatePicker
                       name="endDate"
                       className='text-sm bg-transparent text-gray-300 outline-0'
@@ -163,7 +198,7 @@ const EventForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className='z-50 w-full text-sm bg-purple-900 hover:bg-purple-800'>{eventForm.formState.isSubmitting ? "Submitting..." : "Create Event"}</Button>
+        <Button type="submit" disabled={eventForm.formState.isSubmitting} className='z-50 w-full text-sm bg-purple-900 hover:bg-purple-800'>{eventForm.formState.isSubmitting ? "Submitting..." : "Create Event"}</Button>
       </form>
     </Form>
   )
