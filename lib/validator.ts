@@ -10,5 +10,6 @@ export const EventSchemaValidator = z.object({
   imageUrl: z.string().url(),
   location: z.string().min(1, "Please enter a location").max(200),
   price: z.number().min(0),
-  isFree: z.boolean().default(false)
+  isFree: z.boolean().default(false),
+  organizer: z.string()
 });

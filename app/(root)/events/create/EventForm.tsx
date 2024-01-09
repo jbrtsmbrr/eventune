@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { EventSchemaValidator } from '@/lib/validator'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import DatePicker from "react-datepicker";
@@ -17,8 +17,11 @@ import { createEvent } from '@/lib/database/actions/event.action'
 import { Checkbox } from '@/components/ui/checkbox'
 import ImageUploader from './ImageUploader'
 import { useUploadThing } from '@/utils/uploadthing'
+import { useSession } from '@clerk/nextjs'
+import { IEvent } from '@/lib/types/event'
 
-const EventForm = () => {
+const EventForm = ({ event }: { event?: IEvent }) => {
+  const { isLoaded, session } = useSession();
   const [files, setFiles] = useState<File[]>([]);
   const eventForm = useForm<z.infer<typeof EventSchemaValidator>>({
     resolver: zodResolver(EventSchemaValidator),
@@ -30,9 +33,16 @@ const EventForm = () => {
       imageUrl: "",
       location: "",
       price: 0,
-      isFree: false
-    }
+      isFree: false,
+      organizer: session?.user?.publicMetadata?.userId as string
+    },
   })
+
+  useEffect(() => {
+    if (isLoaded) {
+      eventForm.setValue("organizer", session?.user?.publicMetadata?.userId as string)
+    }
+  }, [isLoaded])
 
   const { startUpload } = useUploadThing("eventImageUploaderEndpoint");
 
@@ -198,7 +208,8 @@ const EventForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" disabled={eventForm.formState.isSubmitting} className='z-50 w-full text-sm bg-purple-900 hover:bg-purple-800'>{eventForm.formState.isSubmitting ? "Submitting..." : "Create Event"}</Button>
+        <Button onClick={() =>
+          console.log(eventForm.getValues())} type="submit" disabled={eventForm.formState.isSubmitting} className='z-50 w-full text-sm bg-purple-900 hover:bg-purple-800'>{eventForm.formState.isSubmitting ? "Submitting..." : "Create Event"}</Button>
       </form>
     </Form>
   )
