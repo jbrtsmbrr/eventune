@@ -11,6 +11,10 @@ const nextConfig = {
       hostname: "utfs.io"
     }
   ]
+  },
+  env: {
+    NEXT_PUPLIC_SPOTIFY_CLIENT_ID: process.env.NEXT_PUPLIC_SPOTIFY_CLIENT_ID,
+    NEXT_PUPLIC_SPOTIFY_SECRET: process.env.NEXT_PUPLIC_SPOTIFY_SECRET
   }
 }
 
