@@ -9,7 +9,6 @@ import { IEvent } from "@/lib/types/event";
 export default async function Home() {
 
   const events: IEvent[] | null = await getAllEvents();
-  // console.log(events)
 
   return <div className="bg-[#121212]">
     <Banner />
