@@ -10,7 +10,8 @@ const EventSchema = new Schema({
   price: { type: Number, required: true },
   isFree: { type: Boolean, required: true, default: false },
   organizer: { type: Schema.Types.ObjectId, ref: 'User' },
-  modifiedAt: { type: Date, default: Date.now }
+  modifiedAt: { type: Date, default: Date.now },
+  artists: { type: [{ type: Schema.Types.ObjectId, ref: "ArtistEvent" }], required: true, default: [] }
   // bands: []
 });
 
