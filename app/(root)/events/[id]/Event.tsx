@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { IEvent } from '@/lib/types/event';
 import { useEffect, useRef, useState } from 'react'
 import BandCard from './BandCard';
+import { IArtistRaw } from '@/utils/spotify/Spotify';
 
 const Event = ({ event }: { event: IEvent }) => {
   const overlayElementRef = useRef<any>();
@@ -40,14 +41,15 @@ const Event = ({ event }: { event: IEvent }) => {
       </div>
       <div className='-translate-y-20 '>
         <div className='relative w-2/3 left-1/2 -translate-x-1/2 grid lg:grid-cols-4 md:grid-cols-2 min-h-[400px] h-fit gap-8'>
-          <BandCard bandName='Lola Amour' imageUrl='/assets/images/trending/lola-amour-2.jpg'/>
+          {event?.artists?.map((artist) => <BandCard key={artist?._id} followers={artist.spotifyData.followers.total} bandName={artist.spotifyData.name} imageUrl={artist.spotifyData.images[0].url} artistUrl={artist.spotifyData.external_urls.spotify} />)}
+          {/* <BandCard bandName='Lola Amour' imageUrl='/assets/images/trending/lola-amour-2.jpg'/>
           <BandCard bandName='Loonie' imageUrl='/assets/images/trending/loonie.jpg' trendingNumber={1} />
           <BandCard bandName='Mayonnaise' imageUrl='/assets/images/trending/mayonnaise.jpg'/>
           <BandCard bandName='Toneejay' imageUrl='/assets/images/trending/toneejay.jpg' trendingNumber={2} />
           <BandCard bandName='Lola Amour' imageUrl='/assets/images/trending/lola-amour-2.jpg'/>
           <BandCard bandName='Loonie' imageUrl='/assets/images/trending/loonie.jpg' trendingNumber={1} />
           <BandCard bandName='Mayonnaise' imageUrl='/assets/images/trending/mayonnaise.jpg'/>
-          <BandCard bandName='Toneejay' imageUrl='/assets/images/trending/toneejay.jpg' trendingNumber={2} />
+          <BandCard bandName='Toneejay' imageUrl='/assets/images/trending/toneejay.jpg' trendingNumber={2} /> */}
 
           {/* <div className='relative h-full group overflow-hidden min-h-[400px] rounded-sm'>
             <div className='relative h-full bg-[url(/assets/images/artists/maxwell-hunt-0fh1QNs8KF0-unsplash.jpg)] bg-cover bg-center bg-no-repeat' />
@@ -75,7 +77,7 @@ const Event = ({ event }: { event: IEvent }) => {
               <button className='mt-8 text-sm border-purple-300 border py-2 px-4 text-purple-100 hover:bg-purple-400 hover:bg-opacity-20 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-in-out delay-200'>Book Ticket</button>
             </div>
           </div> */}
-{/* 
+          {/* 
           <div className='relative h-full group overflow-hidden min-h-[400px] rounded-sm'>
             <div className='relative h-full bg-[url(/assets/images/artists/tamara-gore-gr-0oDn91cE-unsplash.jpg)] bg-cover bg-center bg-no-repeat' />
 
