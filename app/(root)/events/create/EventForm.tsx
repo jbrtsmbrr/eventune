@@ -20,6 +20,7 @@ import { useUploadThing } from '@/utils/uploadthing'
 import { useSession, useUser } from '@clerk/nextjs'
 import { IEvent } from '@/lib/types/event'
 import SpotifyArtistSelect from './SpotifySelect'
+import { getAuth } from '@/utils/spotify/SpotifyPkceFlow'
 
 const initialValues = {
   name: "",

@@ -17,13 +17,11 @@ export interface IArtistRaw {
 export class Spotify {
   private accessToken: string | null = null;
   constructor() {
-    this.initializeAccessToken();
-
+    // this.initializeAccessToken();
   }
 
-  private async initializeAccessToken() {
+  async initializeAccessToken() {
     const authorizationToken = `${CLIENT_ID}:${SECRET}`
-    console.log(authorizationToken)
     const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
       headers: {
@@ -31,11 +29,12 @@ export class Spotify {
         Authorization: `Basic ${new Buffer.from(authorizationToken).toString("base64")}`,
       },
       body: "grant_type=client_credentials",
+      cache: "no-store"
     })
 
     const result = await response.json()
-    console.log(result.access_token)
     this.accessToken = result.access_token as string;
+    return this
   }
 
   async getArtists(keyword = "") {

@@ -40,8 +40,10 @@ const Event = ({ event }: { event: IEvent }) => {
         </div>
       </div>
       <div className='-translate-y-20 '>
-        <div className='relative w-2/3 left-1/2 -translate-x-1/2 grid lg:grid-cols-4 md:grid-cols-2 min-h-[400px] h-fit gap-8'>
-          {event?.artists?.map((artist) => <BandCard key={artist?._id} followers={artist.spotifyData.followers.total} bandName={artist.spotifyData.name} imageUrl={artist.spotifyData.images[0].url} artistUrl={artist.spotifyData.external_urls.spotify} />)}
+        <div className='relative w-2/3 left-1/2 -translate-x-1/2 grid xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 min-h-[400px] h-fit gap-8'>
+          {event?.artists?.map((artist) => {
+            return <BandCard key={artist?._id} followers={artist?.spotifyData?.followers?.total} bandName={artist.spotifyData.name} images={artist.spotifyData.images} artistUrl={artist.spotifyData.external_urls.spotify} />
+          })}
           {/* <BandCard bandName='Lola Amour' imageUrl='/assets/images/trending/lola-amour-2.jpg'/>
           <BandCard bandName='Loonie' imageUrl='/assets/images/trending/loonie.jpg' trendingNumber={1} />
           <BandCard bandName='Mayonnaise' imageUrl='/assets/images/trending/mayonnaise.jpg'/>

@@ -9,16 +9,18 @@ interface IEventPageProps {
 }
 
 const EventPage = async ({ params } : IEventPageProps) => {
-  const spotifyInstance = new Spotify();
+  const spotifyInstance = await (new Spotify().initializeAccessToken());
+  // await spotifyInstance.initializeAccessToken();
   const event = await getEventById(params.id);
 
   for (let artistIndex in event.artists) {
     const currentArtist = event.artists[artistIndex];
     const data = await spotifyInstance.getArtistById(currentArtist.artistSpotifyId); 
+    console.log(data)
     currentArtist.spotifyData = data
   }
 
-  console.log(event)
+  // console.log(event)
   return (
     <div>
       <Event event={event} />

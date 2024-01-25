@@ -1,5 +1,5 @@
 import Select from "react-select";
-import { useArtistSelector, useSpotify } from '@/utils/spotify/useSpotify'
+import { useArtistSelector } from '@/utils/spotify/useSpotify'
 import { debounce } from "@/utils/debounce";
 import SpotifyOption from "./Option";
 import SpotifyMultiValueContainer from "./MultiValueContainer";
@@ -7,10 +7,7 @@ import SpotifyMultiValueContainer from "./MultiValueContainer";
 export interface IOption { id: string, name: string, followers: { total: number }, images: Record<any, any>[] }
 
 const SpotifyArtistSelect = ({ value, onChange }) => {
-  const { loading: loadingSpotify, spotify } = useSpotify();
-  const { loading: loadingOptions, options, selectedArtists, setSelectedArtists, getArtistsByKeyword } = useArtistSelector(spotify);
-
-  { !!loadingSpotify && <p>Loading...</p> }
+  const { loading: loadingOptions, options, getArtistsByKeyword } = useArtistSelector();
 
   const handleSelectChange = (newValue: string) => {
     if (newValue.length <= 0) return;
