@@ -1,4 +1,7 @@
+import { z } from "zod";
 import { IUser } from "../database/models/user.model";
+import { ArtistSchema } from "../validator";
+import { IArtistRaw } from "@/utils/spotify/Spotify";
 
 export interface IEvent {
   _id?: string,
@@ -11,7 +14,10 @@ export interface IEvent {
   price: number;
   isFree: boolean;
   modifiedAt: Date,
-  organizer: IUser
+  organizer: IUser,
+  artists?: Array<{
+    spotifyData: IArtistRaw
+  } & z.infer<typeof ArtistSchema>>
 }
 
 export interface IEventCreateParams {
@@ -23,5 +29,6 @@ export interface IEventCreateParams {
   location: string;
   price: number;
   isFree: boolean;
-  organizer: string
+  organizer: string;
+  artists: Array<z.infer<typeof ArtistSchema>>
 }

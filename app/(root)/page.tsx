@@ -9,7 +9,6 @@ import { IEvent } from "@/lib/types/event";
 export default async function Home() {
 
   const events: IEvent[] | null = await getAllEvents();
-  // console.log(events)
 
   return <div className="bg-[#121212]">
     <Banner />
@@ -18,7 +17,7 @@ export default async function Home() {
       <h1 className="text-6xl font-extrabold text-center uppercase my-10 text-white">
       Newest <span className="text-purple-600">Events</span>
       </h1>
-      <div className="xl:w-3/5 lg:w-4/5 grid lg:p-6 lg:grid-cols-3 md:grid-cols-2 w-full gap-4">
+      <div className="xl:w-3/5 lg:w-4/5 grid lg:p-6 lg:grid-cols-3 md:grid-cols-2 w-full gap-4 sm:w-2/3">
         {events?.map(event => (
           <EventCard key={event._id} event={event} />
         ))}

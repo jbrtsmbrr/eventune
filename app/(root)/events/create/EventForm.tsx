@@ -17,23 +17,31 @@ import { createEvent } from '@/lib/database/actions/event.action'
 import { Checkbox } from '@/components/ui/checkbox'
 import ImageUploader from './ImageUploader'
 import { useUploadThing } from '@/utils/uploadthing'
-import { useSession } from '@clerk/nextjs'
+import { useSession, useUser } from '@clerk/nextjs'
 import { IEvent } from '@/lib/types/event'
+import SpotifyArtistSelect from './SpotifySelect'
+import { getAuth } from '@/utils/spotify/SpotifyPkceFlow'
+
+const initialValues = {
+  name: "",
+  description: "",
+  startDate: new Date(),
+  endDate: new Date(),
+  imageUrl: "",
+  location: "",
+  price: 0,
+  isFree: false,
+  artists: [],
+}
 
 const EventForm = ({ event }: { event?: IEvent }) => {
   const { isLoaded, session } = useSession();
+  // const { isLoaded, user } = useUser();
   const [files, setFiles] = useState<File[]>([]);
   const eventForm = useForm<z.infer<typeof EventSchemaValidator>>({
     resolver: zodResolver(EventSchemaValidator),
     defaultValues: {
-      name: "",
-      description: "",
-      startDate: new Date(),
-      endDate: new Date(),
-      imageUrl: "",
-      location: "",
-      price: 0,
-      isFree: false,
+      ...initialValues,
       organizer: session?.user?.publicMetadata?.userId as string
     },
   })
@@ -62,12 +70,9 @@ const EventForm = ({ event }: { event?: IEvent }) => {
       newImageUrl = readyFiles[0].url;
     }
 
-    console.log({ ...values, imageUrl: newImageUrl })
-
     await createEvent({ ...values, imageUrl: newImageUrl });
-    eventForm.reset();
+    eventForm.reset({ ...initialValues, organizer: session?.user?.publicMetadata?.userId as string });
   }
-
   return (
     <Form {...eventForm}>
       <form onSubmit={eventForm.handleSubmit(onSubmit)} className="space-y-3">
@@ -116,6 +121,19 @@ const EventForm = ({ event }: { event?: IEvent }) => {
             )}
           />
         </div>
+
+        <FormField
+          control={eventForm.control}
+          name="artists"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <SpotifyArtistSelect value={field.value} onChange={field.onChange} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <div className="flex flex-col gap-3 md:flex-row">
           <FormField
@@ -208,8 +226,7 @@ const EventForm = ({ event }: { event?: IEvent }) => {
             </FormItem>
           )}
         />
-        <Button onClick={() =>
-          console.log(eventForm.getValues())} type="submit" disabled={eventForm.formState.isSubmitting} className='z-50 w-full text-sm bg-purple-900 hover:bg-purple-800'>{eventForm.formState.isSubmitting ? "Submitting..." : "Create Event"}</Button>
+        <Button type="submit" disabled={eventForm.formState.isSubmitting} className='z-50 w-full text-sm bg-purple-900 hover:bg-purple-800'>{eventForm.formState.isSubmitting ? "Submitting..." : "Create Event"}</Button>
       </form>
     </Form>
   )
