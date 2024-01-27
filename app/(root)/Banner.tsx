@@ -1,15 +1,15 @@
 "use client"
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef } from "react";
 
 const Banner = () => {
-  const [yOffset, setYOffset] = useState(0);
+  const overlayElementRef = useRef<HTMLDivElement>(null);
 
   const handleScroll = () => {
-    // console.log(window.scrollY)
-    // if (window.scrollY > 500) return;
-    setYOffset(window.scrollY)
+    if (overlayElementRef.current) {
+      overlayElementRef.current.style.backgroundPosition = `35% calc(51% - ${window.scrollY * 0.55}px)`;
+    }
   };
 
 
@@ -21,10 +21,10 @@ const Banner = () => {
   }, [])
 
   return (
-    <div style={{
+    <div ref={overlayElementRef} style={{
       background: 'url(assets/backgrounds/moshed-5-tyler-quick-CRIFa4B1Ozk-unsplash.jpg)',
       height: "100vh",
-      backgroundPosition: `35% calc(51% - ${yOffset * 0.55}px)`,
+      backgroundPosition: `35% calc(51% - ${0 * 0.55}px)`,
       backgroundRepeat: "no-repeat",
       position: "relative",
       backgroundSize: "cover"
