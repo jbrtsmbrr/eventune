@@ -26,6 +26,7 @@ export class Spotify {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
+        // @ts-ignore
         Authorization: `Basic ${new Buffer.from(authorizationToken).toString("base64")}`,
       },
       body: "grant_type=client_credentials",
