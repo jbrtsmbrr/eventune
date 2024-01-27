@@ -25,7 +25,7 @@ export const POST = async (request: NextRequest, response: NextResponse) => {
         signature as string,
         endpointSecret
       );
-    } catch (err) {
+    } catch (err: any) {
       console.log(`⚠️  Webhook signature verification failed.`, err.message);
       return NextResponse.next({ status: 400 })
     }
