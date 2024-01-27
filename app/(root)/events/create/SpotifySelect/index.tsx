@@ -6,7 +6,7 @@ import SpotifyMultiValueContainer from "./MultiValueContainer";
 
 export interface IOption { id: string, name: string, followers: { total: number }, images: Record<any, any>[] }
 
-const SpotifyArtistSelect = ({ value, onChange }) => {
+const SpotifyArtistSelect = ({ value, onChange }: { value: any, onChange: any }) => {
   const { loading: loadingOptions, options, getArtistsByKeyword } = useArtistSelector();
 
   const handleSelectChange = (newValue: string) => {
