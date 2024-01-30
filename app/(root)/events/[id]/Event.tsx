@@ -7,6 +7,7 @@ import BandCard from './BandCard';
 import { IArtistRaw } from '@/utils/spotify/Spotify';
 import { loadStripe } from '@stripe/stripe-js';
 import { checkoutOrder } from "@/lib/database/actions/order.action";
+import Image from 'next/image';
 
 // Make sure to call `loadStripe` outside of a component’s render to avoid
 // recreating the `Stripe` object on every render.
@@ -19,7 +20,7 @@ const Event = ({ event }: { event: IEvent }) => {
 
   const handleScroll = () => {
     if (overlayElementRef.current) {
-      overlayElementRef.current.style.backdropFilter = `blur(${window.scrollY * 0.4}px)`
+      overlayElementRef.current.style.backdropFilter = `blur(${(window.scrollY || 12) * 0.4}px)`
       overlayElementRef.current.style.backgroundColor = `rgba(18, 18, 18,${window.scrollY * 0.002})`
     }
     // setYOffset(window.scrollY)
@@ -27,6 +28,9 @@ const Event = ({ event }: { event: IEvent }) => {
 
 
   useEffect(() => {
+    if (overlayElementRef.current) {
+      overlayElementRef.current.style.backdropFilter = `blur(${(window.scrollY || 12) * 0.4}px)`
+    }
     window.addEventListener("scroll", handleScroll)
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -69,12 +73,13 @@ const Event = ({ event }: { event: IEvent }) => {
         </div>
       </div>
       <div className='-translate-y-10 w-full'>
-        <div className='h-screen w-2/3 z-10 flex items-center mx-auto justify-center'>
-          <div className='flex-1'>
-            left side
+        <div className='h-screen w-2/3 z-10 flex items-center mx-auto justify-center relative md:flex-row flex-col gap-8 py-8 box-border'>
+          <div className='flex-1 relative h-2/3 w-full'>
+            <Image src={event.imageUrl} fill alt={event.imageUrl}
+              objectFit='cover' className='h-full w-full' />
           </div>
-          <div className="flex-1 h-1/2 flex flex-col items-center justify-center gap-8 backdrop-blur-md p-8 border border-white border-opacity-20 rounded-md">
-            <p className=" text-3xl md:text-5xl lg:text-6xl text-center text-white font-bold">{event.name}</p>
+          <div className="flex-1 h-2/3 w-full flex flex-col items-center justify-center gap-8 backdrop-blur-2xl p-8 border border-white border-opacity-20">
+            <p className="text-3xl md:text-5xl lg:text-8xl text-center text-white drop-shadow-md tracking-tighter font-extrabold">{event.name}</p>
             <form action={onCheckout} method="post">
               <Button className='text-lg py-6 px-8 border bg-purple-950/50 hover:bg-purple-950/80 rounded-none transition-all duration-500 ease-in-out delay-200'>Book Ticket</Button>
             </form>
