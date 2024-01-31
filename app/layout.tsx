@@ -28,7 +28,7 @@ export default function RootLayout({
         {/* <body className={`${poppins.className}`}>{children}</body> */}
         {/* <body className={`${lato.className}`}>{children}</body> */}
         {/* <body className={`${playfairDisplay.className}`}>{children}</body> */}
-        <body className={`${nunitoSans.className}`}>{children}</body>
+        <body className={`${nunitoSans.className} bg-black`}>{children}</body>
       </html>
     </ClerkProvider>
 
