@@ -7,8 +7,8 @@ import Link from 'next/link'
 const EventCard = ({ event }: { event: IEvent }) => {
 
   return (
-    <div className='bg-[#1c1c1c] group p-3 min-h-[300px] shadow-lg rounded-xl space-y-3 flex flex-col'>
-      <div className='relative overflow-hidden rounded-xl shadow-2xl flex-1 max-h-[200px]'>
+    <div className='bg-[#101010] group p-3 min-h-[380px] shadow-lg rounded-sm space-y-3 flex flex-col'>
+      <div className='relative overflow-hidden rounded-sm shadow-2xl flex-1 max-h-[200px]'>
         <Image alt="event-image" src={event.imageUrl} width={500} height={500} className='w-full h-full object-cover group-hover:scale-125 transition-all duration-500 ease-in-out' />
         <div className='absolute top-0 bg-purple-900/15 h-full w-full'></div>
       </div>
