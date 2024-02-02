@@ -72,7 +72,7 @@ export default async function Home() {
         }} />
       </div>
       <div className="text-center py-12">
-        <Button className="hover:bg-black hover:bg-opacity-10 text-black text-opacity-50 hover:text-opacity-100 bg-transparent rounded-none border-2 hover:border-gray-800 border-gray-400 uppercase p-6 px-12 tracking-wide transition-all duration-500 ease-in-out">View all</Button>
+        <Button className="hover:bg-black hover:bg-opacity-10 text-opacity-100 bg-transparent rounded-none border-2 hover:border-gray-800 border-gray-400 uppercase p-6 px-12 transition-all duration-500 ease-in-out text-gray-400 font-bold tracking-wider">View all</Button>
       </div>
     </div>
   </div>
