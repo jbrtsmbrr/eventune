@@ -6,7 +6,7 @@ import { Button } from "../ui/button";
 
 const Header = () => {
   return (
-    <div className="fixed top-0 z-10 flex items-center w-full p-4 py-2 justify-evenly bg-[#121212] text-gray-100">
+    <div className="fixed top-0 z-10 flex items-center w-full p-4 py-2 justify-evenly bg-[#000000] text-gray-100 bg-opacity-60 backdrop-blur-3xl">
       <Link href="/">
         <Image alt="eventune-logo" src="/assets/icons/eventune-high-resolution-logo-white-transparent.png" width={45} height={45} />
       </Link>
