@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, set } from "mongoose";
 
 const EventSchema = new Schema({
   name: { type: String, required: true },
@@ -9,7 +9,9 @@ const EventSchema = new Schema({
   location: { type: String, required: true },
   price: { type: Number, required: true },
   isFree: { type: Boolean, required: true, default: false },
-  // organizer: Schema.Types.ObjectId
+  organizer: { type: Schema.Types.ObjectId, ref: 'User' },
+  modifiedAt: { type: Date, default: Date.now },
+  artists: { type: [{ type: Schema.Types.ObjectId, ref: "ArtistEvent" }], required: true, default: [] }
   // bands: []
 });
 

@@ -23,7 +23,7 @@ const NewsCard = async ({ type = "blog", headline, imageUrl, author }: CardProps
       </div>
       <div className='p-4 flex gap-4 items-center'>
         <Image className='rounded-full' alt={`author-${author.name}`} src={author.imageUrl} height={40} width={40} />
-        <p>{author.name}</p>
+        <p className='text-gray-500'>{author.name}</p>
       </div>
     </div>
   )

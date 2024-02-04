@@ -5,7 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 import { EventSchemaValidator } from '@/lib/validator'
 import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import DatePicker from "react-datepicker";
@@ -17,22 +17,39 @@ import { createEvent } from '@/lib/database/actions/event.action'
 import { Checkbox } from '@/components/ui/checkbox'
 import ImageUploader from './ImageUploader'
 import { useUploadThing } from '@/utils/uploadthing'
+import { useSession, useUser } from '@clerk/nextjs'
+import { IEvent } from '@/lib/types/event'
+import SpotifyArtistSelect from './SpotifySelect'
 
-const EventForm = () => {
+const initialValues = {
+  name: "",
+  description: "",
+  startDate: new Date(),
+  endDate: new Date(),
+  imageUrl: "",
+  location: "",
+  price: 0,
+  isFree: false,
+  artists: [],
+}
+
+const EventForm = ({ event }: { event?: IEvent }) => {
+  const { isLoaded, session } = useSession();
+  // const { isLoaded, user } = useUser();
   const [files, setFiles] = useState<File[]>([]);
   const eventForm = useForm<z.infer<typeof EventSchemaValidator>>({
     resolver: zodResolver(EventSchemaValidator),
     defaultValues: {
-      name: "",
-      description: "",
-      startDate: new Date(),
-      endDate: new Date(),
-      imageUrl: "",
-      location: "",
-      price: 0,
-      isFree: false
-    }
+      ...initialValues,
+      organizer: session?.user?.publicMetadata?.userId as string
+    },
   })
+
+  useEffect(() => {
+    if (isLoaded) {
+      eventForm.setValue("organizer", session?.user?.publicMetadata?.userId as string)
+    }
+  }, [isLoaded])
 
   const { startUpload } = useUploadThing("eventImageUploaderEndpoint");
 
@@ -52,12 +69,9 @@ const EventForm = () => {
       newImageUrl = readyFiles[0].url;
     }
 
-    console.log({ ...values, imageUrl: newImageUrl })
-
     await createEvent({ ...values, imageUrl: newImageUrl });
-    eventForm.reset();
+    eventForm.reset({ ...initialValues, organizer: session?.user?.publicMetadata?.userId as string });
   }
-
   return (
     <Form {...eventForm}>
       <form onSubmit={eventForm.handleSubmit(onSubmit)} className="space-y-3">
@@ -106,6 +120,19 @@ const EventForm = () => {
             )}
           />
         </div>
+
+        <FormField
+          control={eventForm.control}
+          name="artists"
+          render={({ field }) => (
+            <FormItem>
+              <FormControl>
+                <SpotifyArtistSelect value={field.value} onChange={field.onChange} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
 
         <div className="flex flex-col gap-3 md:flex-row">
           <FormField
