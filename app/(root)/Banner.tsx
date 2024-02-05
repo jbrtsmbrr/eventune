@@ -22,7 +22,7 @@ const Banner = () => {
 
   return (
     <div className="banner" ref={overlayElementRef} style={{
-      background: 'url(assets/backgrounds/tyler-quick-CRIFa4B1Ozk-unsplash.jpg)',
+      background: 'url(/assets/backgrounds/tyler-quick-CRIFa4B1Ozk-unsplash.jpg)',
       height: "100vh",
       backgroundPosition: `35% calc(51% - ${0 * 0.55}px)`,
       backgroundRepeat: "no-repeat",
