@@ -112,7 +112,7 @@ li.react-datepicker__time-list-item--selected,
 
 .banner::before,
 .banner {
-  mix-blend-mode: luminosity;
+  mix-blend-mode: normal;
 }
 
 .banner::before {
