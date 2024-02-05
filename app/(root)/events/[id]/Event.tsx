@@ -49,19 +49,19 @@ const Event = ({ event }: { event: IEvent }) => {
       <div className='fixed top-0 left-0 h-screen w-screen'>
 
         {/* @ts-ignore */}
-        <div style={{ "--event-image-url": `url(${event.imageUrl})` }} className={`absolute h-full w-screen bg-[image:var(--event-image-url)] bg-cover bg-center bg-no-repeat grayscale`} />
+        <div style={{ "--event-image-url": `url(${event.imageUrl})` }} className={`absolute h-full w-screen bg-[image:var(--event-image-url)] bg-cover bg-center bg-no-repeat`} />
         {/* <div className='absolute h-full w-screen banner'></div> */}
         <div ref={overlayElementRef} className='absolute top-0 h-full w-full bg-opacity-5 banner'>
 
         </div>
       </div>
-      <div className='relative xl:w-4/5 w-2/3 mx-auto'>
-        <div className='relative h-[calc(100vh/1.8)] top-[61px] flex items-center w-full'>
+      <div className='relative xl:w-4/5 w-4/5 mx-auto'>
+        <div className='relative min-h-[calc(100vh/1.6)] top-[61px] flex items-center w-full py-8'>
           <EventBanner event={event} />
         </div>
         {/* <div className='md:-translate-y-32'> */}
         <div className='relative left-1/2 -translate-x-1/2 top-[61px]'>
-          <p className='text-white md:text-2xl text-5xl font-extrabold uppercase tracking-wide font-serif my-4 italic'>Who's performing?</p>
+          <p className='text-gray-300 md:text-4xl text-3xl font-extrabold uppercase tracking-wide font-serif mt-6 mb-4 italic'>Who's performing?</p>
           <div className='grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 min-h-[400px] h-fit gap-4'>
             {event?.artists?.map((artist) => {
               return <BandCard key={artist?._id} followers={artist?.spotifyData?.followers?.total} bandName={artist.spotifyData.name} images={artist.spotifyData.images} artistUrl={artist.spotifyData.external_urls.spotify} />

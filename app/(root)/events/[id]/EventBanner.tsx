@@ -28,13 +28,13 @@ const EventBanner = ({ event }: { event: IEvent }) => {
   }
 
   return (
-    <div className='relative grid grid-cols-8 h-4/5 w-full gap-4'>
-      <div className='relative col-span-2 h-full'>
+    <div className='relative lg:grid md:grid-cols-8 min-h-4/5 w-full gap-6 flex flex-col'>
+      <div className='relative xl:col-span-3 lg:col-span-4 lg:h-full lg:min-h-0 min-h-[250px] lg:aspect-auto md:aspect-square'>
         <Image src={event.imageUrl} fill alt={event.imageUrl}
           objectFit='cover' className='h-full w-full' />
       </div>
-      <div className='flex flex-col justify-between  h-full col-span-4'>
-        <div className='font-serif flex flex-col gap-10 py-4'>
+      <div className='flex flex-col justify-between h-full col-span-4  py-4'>
+        <div className='font-serif flex flex-col gap-10'>
           <div>
             <p className='text-white font-serif text-4xl font-semibold'>{event.name}</p>
             <p className='text-white text-lg italic'>
@@ -48,7 +48,7 @@ const EventBanner = ({ event }: { event: IEvent }) => {
             <p className='font-bold uppercase text-white italic'>about</p>
             <p className='text-white max-w-[45ch]'>{event.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, sit soluta dolorem ratione ipsum culpa vero dignissimos delectus corporis earum corrupti explicabo similique cumque non id natus nostrum et at.</p>
           </div>
-          <div className='flex items-center gap-4'>
+          <div className='flex items-center gap-6'>
             <div>
               <p className='text-white font-bold'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(event.price)}</p>
               <p className="text-white">Standard</p>
@@ -61,7 +61,7 @@ const EventBanner = ({ event }: { event: IEvent }) => {
         </div>
         <form action={onCheckout} method="post" className='relative flex gap-4 items-center justify-center w-fit'>
           <Button className='group mt-6 uppercase font-serif px-4 py-2 shadow-lg bg-white border-2 border-white hover:bg-opacity-100 hover:text-white transition-all duration-500 text-sm text-black rounded-none ease-in-out delay-150 tracking-widest'>
-            <span className="block group-hover:translate-y-5 duration-0">Book Ticket</span>
+            <span className="block md:group-hover:translate-y-5 duration-0">Book Ticket</span>
           </Button>
         </form>
       </div>
