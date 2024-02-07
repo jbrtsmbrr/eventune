@@ -45,7 +45,7 @@ export default async function Home() {
     </div>
 
     {/* News */}
-    <div className="p-8 h-screen">
+    <div className="p-8 min-h-screen">
       <h1 className="text-6xl font-extrabold text-center uppercase my-10 text-white">
         Latest <span className="text-purple-600">News</span>
       </h1>
