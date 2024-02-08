@@ -34,7 +34,7 @@ export default async function Home() {
       <h1 className="text-6xl font-extrabold text-center uppercase my-10 text-white">
         Trending <span className="text-purple-600">Artists</span>
       </h1>
-      <div className="grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-4 min-h-full place-items-center">
+      <div className="grid grid-cols-2 2xl:grid-cols-4 xl:grid-cols-3 md:grid-cols-2 gap-4 min-h-full place-items-center">
         <TrendingCard name="loonie" imageUrl="/assets/images/trending/loonie.jpg" />
         <TrendingCard name="Mayonnaise" imageUrl="/assets/images/trending/mayonnaise.jpg" />
         <TrendingCard name="dilaw" imageUrl="/assets/images/trending/dilaw.jpg" />
