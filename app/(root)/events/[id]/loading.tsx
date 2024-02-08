@@ -2,7 +2,9 @@ import React from 'react'
 
 const loading = () => {
   return (
-    <div className='absolute top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 text-gray-50 uppercase font-bold tracking-wider'>loading...</div>
+    <div className='relative top-[61px] h-screen flex items-center justify-center'>
+      <p className='text-gray-50 uppercase font-bold tracking-wider'>loading event...</p>
+    </div>
   )
 }
 

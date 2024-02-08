@@ -55,8 +55,8 @@ const Event = ({ event }: { event: IEvent }) => {
 
         </div>
       </div>
-      <div className='relative 2xl:w-3/4 w-4/5 mx-auto'>
-        <div className='relative min-h-[calc(100vh/1.6)] top-[61px] flex items-center w-full py-8'>
+      <div className='relative 2xl:w-3/4 w-4/5 mx-auto my-[61px] h-fit'>
+        <div className='relative min-h-[calc(100vh/1.6)] flex items-center w-full py-8'>
           <EventBanner event={event} />
         </div>
         {/* <div className='md:-translate-y-32'> */}
