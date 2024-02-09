@@ -14,7 +14,7 @@ const NewsCard = async ({ type = "blog", headline, imageUrl, author }: CardProps
   return (
     <div className='group relative flex flex-col aspect-video rounded-sm shadow-lg h-full w-full'>
       <div className='relative overflow-hidden min-h-[200px] h-1/2'>
-        <div className='absolute h-full w-full bg-purple-200 bg-opacity-30 group-hover:bg-opacity-10 transition-all duration-500 ease-in-out z-10' />
+        <div className='absolute h-full w-full bg-black bg-opacity-15 group-hover:bg-opacity-0 transition-all duration-500 ease-in-out z-10' />
         <Image alt="glena-news" src={imageUrl} height={500} width={500} className='group-hover:scale-110  transition-all duration-500 ease-in-out h-full object-cover' />
       </div>
       <div className='p-4 flex-1'>
