@@ -5,10 +5,12 @@ import TrendingCard from "@/components/common/TrendingCard";
 import EventCard from "@/components/common/EventCard";
 import { getAllEvents } from "@/lib/database/actions/event.action";
 import { IEvent } from "@/lib/types/event";
+import BaseButton from "@/components/common/BaseButton";
+import Link from "next/link";
 
 export default async function Home() {
 
-  const events: IEvent[] | null = await getAllEvents();
+  const events: IEvent[] | null = await getAllEvents({ limit: 5 });
 
   return <div className="bg-[#121212]">
     <Banner />
@@ -26,6 +28,14 @@ export default async function Home() {
         {events?.map(event => (
           <EventCard key={event._id} event={event} />
         ))}
+      </div>
+
+      <div className="text-center py-12">
+        <Link href="/events">
+          <BaseButton>
+            View more
+          </BaseButton>
+        </Link>
       </div>
     </div>
 
@@ -72,7 +82,9 @@ export default async function Home() {
         }} />
       </div>
       <div className="text-center py-12">
-        <Button className="hover:bg-black hover:bg-opacity-10 text-opacity-100 bg-transparent rounded-none border-2 hover:border-gray-800 border-gray-400 uppercase p-6 px-12 transition-all duration-500 ease-in-out text-gray-400 font-bold tracking-wider">View all</Button>
+        <BaseButton>
+          View All
+        </BaseButton>
       </div>
     </div>
   </div>
