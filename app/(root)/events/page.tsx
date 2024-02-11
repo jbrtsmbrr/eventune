@@ -3,7 +3,7 @@ import { getAllEvents } from '@/lib/database/actions/event.action';
 import { IEvent } from '@/lib/types/event';
 import React from 'react'
 
-const Events = async ({ searchParams }) => {
+const Events = async ({ searchParams }: { searchParams: { limit: number } }) => {
   console.log(searchParams)
   const filters = {
     limit: searchParams.limit ?? 0
