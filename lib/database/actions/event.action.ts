@@ -36,10 +36,10 @@ export const createEvent = async (event: IEventCreateParams) => {
   }
 }
 
-export const getAllEvents = async () => {
+export const getAllEvents = async ({ limit = 0 } = {}) => {
   try {
     await connect();
-    const events = await Event.find().sort({ modifiedAt: 'desc' }).populate({ path: "organizer", model: User, select: "_id firstName lastName" });
+    const events = await Event.find().sort({ modifiedAt: 'desc' }).limit(limit).populate({ path: "organizer", model: User, select: "_id firstName lastName" });
 
     // console.log(events)
 
