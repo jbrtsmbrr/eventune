@@ -35,10 +35,10 @@ const Combobox = ({ options = [], placeholder = "", onChange, value }: ICombobox
           variant="outline"
           // role="multiple"
           aria-expanded={open}
-          className="w-[200px] justify-between rounded-none"
+          className="min-w-full justify-between rounded-none"
         >
           {value
-            ? options.find((option) => option.value.toString() === value.toString())?.label
+            ? options.find((option) => option.value?.toString() === value?.toString())?.label
             : placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -53,7 +53,7 @@ const Combobox = ({ options = [], placeholder = "", onChange, value }: ICombobox
                 key={`cmi-${option.value}`}
                 value={option.value}
                 onSelect={(nextValue) => {
-                  const newValue = nextValue === value.toString() ? "" : nextValue
+                  const newValue = nextValue === value?.toString() ? "" : nextValue
                   onChange(newValue)
                   setOpen(false)
                 }}
