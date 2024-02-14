@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/popover";
 import moment from "moment"
 import Combobox from "@/components/common/Combobox";
-import { redirect } from "next/navigation"
+import { redirect, useParams, useSearchParams } from "next/navigation"
 
 const limitOptions = [
   {
@@ -52,22 +52,32 @@ const limitOptions = [
 const FormSchema = z.object({
   limit: z.any(),
   date_range: z.object({
-    from: z.date().optional(),
-    to: z.date().optional(),
-  }).optional()
+    from: z.date(),
+    to: z.date(),
+  })
 })
 
 const FilterForm = () => {
+  const params = useSearchParams();
+  console.log(params)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      limit: ""
+      limit: isNaN(Number(params.get("limit"))) ? "10" : params.get("limit"),
+      date_range: {
+        from: new Date(),
+        to: new Date()
+      }
     }
   })
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
+    const date = {
+      from: moment(data.date_range.from).format("YYYY-MM-DD"),
+      to: moment(data.date_range.to).format("YYYY-MM-DD")
+    }
     // console.log(data)
-    window.location.href = `/events?limit=${data.limit}`
+    window.location.href = `/events?limit=${data.limit}&from=${date.from}&to=${date.to}`
     // toast({
     //   title: "You submitted the following values:",
     //   description: (
@@ -80,7 +90,7 @@ const FilterForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid grid-cols-4 gap-4 my-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="grid md:grid-cols-4 w-full grid-cols-1 gap-4 my-8">
         <FormField
           control={form.control}
           name="date_range"
@@ -96,7 +106,7 @@ const FilterForm = () => {
                       //   "w-[240px] pl-3 text-left font-normal",
                       //   !field.value && "text-muted-foreground"
                       // )}
-                      className="min-w-[250px] rounded-none"
+                      className="min-w-full rounded-none"
                     >
                       {field.value ? (
                         `${moment(field.value.from).format("YYYY-MM-DD")} - ${moment(field.value.to).format("YYYY-MM-DD")}`
@@ -142,7 +152,7 @@ const FilterForm = () => {
             </FormItem>
           )}
         />
-        <Button type="submit" className="font-semibold text-xs tracking-wider uppercase bg-white bg-opacity-100 border-2 border-white rounded-none text-black hover:text-white hover:bg-opacity-50 self-end w-fit">Filter</Button>
+        <Button type="submit" className="font-semibold text-xs tracking-wider uppercase bg-white bg-opacity-100 border-2 border-white rounded-none text-black hover:text-white hover:bg-opacity-50 self-end w-fit place-self-end">Filter</Button>
       </form>
     </Form>
   )
