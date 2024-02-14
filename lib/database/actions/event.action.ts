@@ -5,6 +5,7 @@ import { connect } from "..";
 import Event from "../models/event.model";
 import User from "../models/user.model";
 import ArtistEvent from "../models/event_artist.model";
+import { IEventProps } from "@/app/(root)/events/page";
 
 const saveArtists = async (artist: any) => {
   return ArtistEvent.create(artist);
@@ -36,10 +37,26 @@ export const createEvent = async (event: IEventCreateParams) => {
   }
 }
 
-export const getAllEvents = async ({ limit = 0 } = {}) => {
+interface IGetAllEvents {
+  limit: number,
+  dateRange: {
+    from: string,
+    to: string
+  } | null
+}
+
+export const getAllEvents = async ({ limit = 0, dateRange = null }: IGetAllEvents) => {
+  
   try {
     await connect();
-    const events = await Event.find().sort({ modifiedAt: 'desc' }).limit(limit).populate({ path: "organizer", model: User, select: "_id firstName lastName" });
+    const events = await Event.find({
+      $and: [
+        { startDate: { $gte: dateRange?.from ? new Date(dateRange?.from) : new Date() } },
+        { endDate: { $lte: dateRange?.to ? new Date(dateRange?.to) : new Date() } }
+      ]
+    }).sort({ modifiedAt: 'desc' })
+      .limit(limit)
+      .populate({ path: "organizer", model: User, select: "_id firstName lastName" });
 
     // console.log(events)
 
