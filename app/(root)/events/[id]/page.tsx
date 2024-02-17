@@ -16,11 +16,9 @@ const EventPage = async ({ params }: IEventPageProps) => {
   for (let artistIndex in event.artists) {
     const currentArtist = event.artists[artistIndex];
     const data = await spotifyInstance.getArtistById(currentArtist.artistSpotifyId);
-    // console.log(data)
     currentArtist.spotifyData = data
   }
 
-  // console.log(event)
   return (
     <Event event={event} />
   )

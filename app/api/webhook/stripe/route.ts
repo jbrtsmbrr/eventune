@@ -11,7 +11,6 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
 
 export const POST = async (request: NextRequest, response: NextResponse) => {
-  console.log(endpointSecret)
   let event;
   // Only verify the event if you have an endpoint secret defined.
   // Otherwise use the basic event deserialized with JSON.parse

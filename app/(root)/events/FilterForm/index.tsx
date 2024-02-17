@@ -59,7 +59,6 @@ const FormSchema = z.object({
 
 const FilterForm = () => {
   const params = useSearchParams();
-  console.log(params)
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -76,7 +75,7 @@ const FilterForm = () => {
       from: moment(data.date_range.from).format("YYYY-MM-DD"),
       to: moment(data.date_range.to).format("YYYY-MM-DD")
     }
-    // console.log(data)
+    
     window.location.href = `/events?limit=${data.limit}&from=${date.from}&to=${date.to}`
     // toast({
     //   title: "You submitted the following values:",
