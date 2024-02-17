@@ -6,6 +6,7 @@ import Event from "../models/event.model";
 import User from "../models/user.model";
 import ArtistEvent from "../models/event_artist.model";
 import { IEventProps } from "@/app/(root)/events/page";
+import moment from "moment";
 
 const saveArtists = async (artist: any) => {
   return ArtistEvent.create(artist);
@@ -15,7 +16,11 @@ export const createEvent = async (event: IEventCreateParams) => {
   try {
     await connect();
     const { artists, ...eventData } = event;
-    const newEvent = new Event(eventData);
+    const newEvent = new Event({
+      ...eventData,
+      startDate: new Date(eventData.startDate),
+      endDate: new Date(eventData.endDate)
+    });
 
     if (newEvent) {
       const savedArtistsPromises = artists.map(artist => saveArtists({
@@ -42,19 +47,29 @@ interface IGetAllEvents {
   dateRange: {
     from: string,
     to: string
-  } | null
+  } | undefined | null
 }
 
-export const getAllEvents = async ({ limit = 0, dateRange = null }: IGetAllEvents) => {
-  
+export const getAllEvents = async ({ limit = 0, dateRange = undefined }: IGetAllEvents) => {
+  let filterQueries: Record<any, any> = {}
+  if (dateRange) {
+    filterQueries.$and = [
+      { startDate: { $gte: moment(`${dateRange.from} 00:00:00`).toISOString() } },
+      { endDate: { $lte: moment(`${dateRange.to} 23:59:59`).toISOString() } },
+    ]
+
+    // filterQueries = {
+    //   startDate: { $gte: new Date(dateRange.from) },
+    //   endDate: { $lt: new Date(dateRange.to) }
+    // }
+  }
+
+  console.log(filterQueries)
+
   try {
     await connect();
-    const events = await Event.find({
-      $and: [
-        { startDate: { $gte: dateRange?.from ? new Date(dateRange?.from) : new Date() } },
-        { endDate: { $lte: dateRange?.to ? new Date(dateRange?.to) : new Date() } }
-      ]
-    }).sort({ modifiedAt: 'desc' })
+    const events = await Event.find(filterQueries)
+      .sort({ modifiedAt: 'desc' })
       .limit(limit)
       .populate({ path: "organizer", model: User, select: "_id firstName lastName" });
 
