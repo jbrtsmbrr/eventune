@@ -3,8 +3,8 @@ import { Schema, model, models, set } from "mongoose";
 const EventSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, },
-  startDate: { type: String, required: true },
-  endDate: { type: String, required: true },
+  startDate: { type: Date, required: true },
+  endDate: { type: Date, required: true },
   imageUrl: { type: String, required: true },
   location: { type: String, required: true },
   price: { type: Number, required: true },
