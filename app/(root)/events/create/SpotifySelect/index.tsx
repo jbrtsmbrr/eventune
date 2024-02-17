@@ -56,8 +56,6 @@ const SpotifyArtistSelect = ({ value, onChange }: { value: any, onChange: any })
           //   const prevArtistsCopy = [...prevArtists]
           //   const index = prevArtistsCopy.findIndex((opt: any) => {
 
-          //     console.log(opt.id)
-          //     console.log(multiValueState.data.id)
           //     return opt.id as string === multiValueState.data.id as string
           //   })
 

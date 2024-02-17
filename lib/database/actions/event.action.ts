@@ -58,8 +58,6 @@ export const getAllEvents = async ({ limit = 0, dateRange = null }: IGetAllEvent
       .limit(limit)
       .populate({ path: "organizer", model: User, select: "_id firstName lastName" });
 
-    // console.log(events)
-
     return JSON.parse(JSON.stringify(events))
   } catch (err) {
     console.log(err)

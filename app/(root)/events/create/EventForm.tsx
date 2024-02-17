@@ -56,7 +56,6 @@ const EventForm = ({ event }: { event?: IEvent }) => {
   async function onSubmit(values: z.infer<typeof EventSchemaValidator>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    // return console.log(values)
     let newImageUrl = values.imageUrl;
     if (files.length > 0) {
       const readyFiles = await startUpload(files);
