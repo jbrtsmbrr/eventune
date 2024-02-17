@@ -1,9 +1,10 @@
 "use client"
 
 import { zodResolver } from "@hookform/resolvers/zod"
-import { CalendarIcon } from "lucide-react"
+import { CalendarIcon, X } from "lucide-react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+
 
 // import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
@@ -24,7 +25,7 @@ import {
 } from "@/components/ui/popover";
 import moment from "moment"
 import Combobox from "@/components/common/Combobox";
-import { redirect, useParams, useSearchParams } from "next/navigation"
+import { ReadonlyURLSearchParams, redirect, useParams, useSearchParams } from "next/navigation"
 
 const limitOptions = [
   {
@@ -50,33 +51,56 @@ const limitOptions = [
 ]
 
 const FormSchema = z.object({
-  limit: z.any(),
+  limit: z.string().optional().nullable(),
   date_range: z.object({
     from: z.date(),
     to: z.date(),
-  })
+  }).optional().nullable()
 })
+
+const generateDefaultValues = (params: ReadonlyURLSearchParams): z.infer<typeof FormSchema> => {
+  let dateRange;
+
+  if (params.get("from") && params.get("to")) {
+    dateRange = {
+      from: new Date(params.get("from") as string),
+      to: new Date(params.get("to") as string)
+    }
+  }
+
+  return {
+    limit: (isNaN(Number(params.get("limit"))) ? "10" : params.get("limit")) as string,
+    date_range: dateRange
+  }
+}
 
 const FilterForm = () => {
   const params = useSearchParams();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      limit: isNaN(Number(params.get("limit"))) ? "10" : params.get("limit"),
-      date_range: {
-        from: new Date(),
-        to: new Date()
-      }
-    }
+    defaultValues: generateDefaultValues(params)
   })
 
+  console.log(form.getValues())
+
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    const date = {
-      from: moment(data.date_range.from).format("YYYY-MM-DD"),
-      to: moment(data.date_range.to).format("YYYY-MM-DD")
+
+    const queryParams = [];
+
+    if (data.limit) {
+      queryParams.push(`limit=${data.limit}`);
     }
-    
-    window.location.href = `/events?limit=${data.limit}&from=${date.from}&to=${date.to}`
+
+    if (data.date_range) {
+      const date = {
+        from: moment(data.date_range.from).format("YYYY-MM-DD"),
+        to: moment(data.date_range.to).format("YYYY-MM-DD")
+      }
+      queryParams.push(`from=${date.from}`)
+      queryParams.push(`to=${date.to}`)
+    }
+
+    window.location.href = `/events?${queryParams.join("&")}`
     // toast({
     //   title: "You submitted the following values:",
     //   description: (
@@ -107,12 +131,16 @@ const FilterForm = () => {
                       // )}
                       className="min-w-full rounded-none"
                     >
-                      {field.value ? (
+                      {field.value?.from && field.value?.to ? (
                         `${moment(field.value.from).format("YYYY-MM-DD")} - ${moment(field.value.to).format("YYYY-MM-DD")}`
                       ) : (
-                        <span>Pick a date</span>
+                        <span>Pick a date range</span>
                       )}
                       <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                      <X className="ml-2 h-4 w-4 opacity-50 hover:opacity-100 hover:text-red-500 z-50" onClick={() => {
+                        console.log("clear")
+                        field.onChange(null)
+                      }} />
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
@@ -123,8 +151,10 @@ const FilterForm = () => {
                     // toDate={field.value?.to}
                     selected={field.value}
                     onSelect={(value) => {
-                      if ((value?.from) != null) {
-                        field.onChange({ from: value?.from, to: value?.to })
+                      console.log("trig")
+                      console.log(value)
+                      if ((value?.from) !== null) {
+                        field.onChange({ from: value?.from, to: value?.to ?? value?.from })
                       }
                     }}
                   // disabled={(date) =>
