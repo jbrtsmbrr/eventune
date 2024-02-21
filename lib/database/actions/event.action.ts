@@ -43,11 +43,11 @@ export const createEvent = async (event: IEventCreateParams) => {
 }
 
 interface IGetAllEvents {
-  limit: number,
-  dateRange: {
+  limit?: number,
+  dateRange?: {
     from: string,
     to: string
-  } | undefined | null
+  } | null
 }
 
 export const getAllEvents = async ({ limit = 0, dateRange = undefined }: IGetAllEvents) => {
