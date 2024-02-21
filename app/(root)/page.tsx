@@ -15,7 +15,7 @@ export default async function Home() {
   return <div className="bg-[#121212]">
     <Banner />
 
-    <div className="relative left-1/2 -translate-x-1/2 md:p-8 p-14 flex flex-col items-center justify-center bg-[#121212]">
+    <div className="relative left-1/2 -translate-x-1/2 p-8 flex flex-col items-center justify-center bg-[#121212]">
       <h1 className="text-6xl font-extrabold text-center uppercase my-10 text-white">
         Newest <span className="text-purple-600">Events</span>
       </h1>
@@ -24,7 +24,7 @@ export default async function Home() {
           <EventCard key={event._id} event={event} />
         ))}
       </div> */}
-      <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 w-full gap-4 ">
+      <div className="grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 w-full gap-4">
         {events?.map(event => (
           <EventCard key={event._id} event={event} />
         ))}
