@@ -119,7 +119,7 @@ const FilterForm = () => {
             control={form.control}
             name="date_range"
             render={({ field }) => (
-              <FormItem className="flex flex-col min-w-[200px]">
+              <FormItem className="flex flex-col min-w-[250px]">
                 <FormLabel className="text-white">Date</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
@@ -130,7 +130,7 @@ const FilterForm = () => {
                         //   "w-[240px] pl-3 text-left font-normal",
                         //   !field.value && "text-muted-foreground"
                         // )}
-                        className="min-w-full rounded-none"
+                        className="min-w-full rounded-none bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-950 hover:text-gray-200"
                       >
                         {field.value?.from && field.value?.to ? (
                           `${moment(field.value.from).format("YYYY-MM-DD")} - ${moment(field.value.to).format("YYYY-MM-DD")}`
