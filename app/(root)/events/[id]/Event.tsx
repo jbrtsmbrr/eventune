@@ -60,8 +60,8 @@ const Event = ({ event }: { event: IEvent }) => {
           <EventBanner event={event} />
         </div>
         {/* <div className='md:-translate-y-32'> */}
-        <div className='relative left-1/2 -translate-x-1/2 top-[61px]'>
-          <p className='text-gray-300 md:text-4xl text-3xl font-extrabold uppercase tracking-wide font-serif mt-6 mb-4 italic'>Who's performing?</p>
+        <div className='relative left-1/2 -translate-x-1/2'>
+          <p className='text-gray-200 md:text-5xl text-5xl font-extrabold uppercase tracking-wider mt-6 mb-7'>Who's performing?</p>
           <div className='grid 2xl:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 min-h-[400px] h-fit gap-4'>
             {event?.artists?.map((artist) => {
               return <BandCard key={artist?._id} followers={artist?.spotifyData?.followers?.total} bandName={artist.spotifyData.name} images={artist.spotifyData.images} artistUrl={artist.spotifyData.external_urls.spotify} />

@@ -1,3 +1,4 @@
+import BaseButton from '@/components/common/BaseButton'
 import { Button } from '@/components/ui/button'
 import { checkoutOrder } from '@/lib/database/actions/order.action'
 import { IEvent } from '@/lib/types/event'
@@ -34,35 +35,36 @@ const EventBanner = ({ event }: { event: IEvent }) => {
           objectFit='cover' className='h-full w-full' />
       </div>
       <div className='flex flex-col justify-between h-full col-span-4  py-4'>
-        <div className='font-serif flex flex-col gap-10'>
+        <div className='flex flex-col gap-10'>
           <div>
-            <p className='text-white font-serif text-4xl font-semibold'>{event.name}</p>
-            <p className='text-white text-lg italic'>
+            <p className='text-white text-4xl font-semibold tracking-wider mb-3'>{event.name}</p>
+            <p className='text-gray-300 text-md'>
               {/* {moment(event.startDate).format("DD MMMM YYYY,")}<br />
           {moment(event.startDate).format("dddd hh:MM A")} */}
-              {moment(event.startDate).format("DD MMMM, ddd hh:MM A")}
+              {moment(event.startDate).format("DD MMMM, ddd hh:mm A")}
             </p>
-            <p className='text-white text-lg'>{event.location}</p>
+            <p className='text-gray-300 text-md'>{event.location}</p>
           </div>
           <div>
-            <p className='font-bold uppercase text-white italic'>about</p>
-            <p className='text-white max-w-[45ch]'>{event.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, sit soluta dolorem ratione ipsum culpa vero dignissimos delectus corporis earum corrupti explicabo similique cumque non id natus nostrum et at.</p>
+            <p className='font-bold uppercase text-gray-200'>about</p>
+            <p className='text-gray-300 max-w-[45ch]'>{event.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, sit soluta dolorem ratione ipsum culpa vero dignissimos delectus corporis earum corrupti explicabo similique cumque non id natus nostrum et at.</p>
           </div>
           <div className='flex items-center gap-6'>
             <div>
               <p className='text-white font-bold'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(event.price)}</p>
-              <p className="text-white">Standard</p>
+              <p className="text-gray-300">Standard</p>
             </div>
             <div>
               <p className='text-white font-bold'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(event.price + 300)}</p>
-              <p className="text-white">VIP</p>
+              <p className="text-gray-300">VIP</p>
             </div>
           </div>
         </div>
         <form action={onCheckout} method="post" className='relative flex gap-4 items-center justify-center w-fit'>
-          <Button className='group mt-6 uppercase font-serif px-4 py-2 shadow-lg bg-white border-2 border-white hover:bg-opacity-100 hover:text-white transition-all duration-500 text-sm text-black rounded-none ease-in-out delay-150 tracking-widest'>
+          {/* <Button className='group mt-6 uppercase font-serif px-4 py-2 shadow-lg bg-white border-2 border-white hover:bg-opacity-100 hover:text-white transition-all duration-500 text-sm text-black rounded-none ease-in-out delay-150 tracking-widest'>
             <span className="block md:group-hover:translate-y-5 duration-0">Book Ticket</span>
-          </Button>
+          </Button> */}
+          <BaseButton className='mt-6'>Book Ticket</BaseButton>
         </form>
       </div>
       {/* <div className="flex-1 h-2/3 w-full flex flex-col items-center justify-center gap-8 backdrop-blur-2xl p-8 border border-white border-opacity-20 bg-black bg-opacity-45">
