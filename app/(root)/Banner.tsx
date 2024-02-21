@@ -32,14 +32,14 @@ const Banner = () => {
       {/* <div className="absolute h-full w-full bg-purple-950 bg-opacity-15"></div> */}
       <div className="z-10 absolute w-full top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] p-8 box-border flex items-center flex-col gap-8">
         <div className="lg:w-1/3 md:w-1/2 md:text-center z-50 text-left">
-          <p className="text-7xl text-white uppercase font-bold font-serif">
+          <p className="text-7xl text-white uppercase font-extrabold tracking-tight mb-2">
             Welcome to Eventune
           </p>
-          <p className="text-gray-300 font-serif italic uppercase">
+          <p className="text-gray-300 italic uppercase">
             Never miss another music festival!
           </p>
-          <button className="group mt-6 uppercase font-serif px-4 py-2 shadow-lg bg-white border-2 border-white hover:bg-opacity-25 hover:text-white transition-all duration-500">
-            <span className="block group-hover:translate-y-5 duration-0">Begin Exploration</span>
+          <button className="group mt-6 uppercase px-4 py-2 shadow-lg bg-white border-2 border-white hover:bg-black hover:bg-opacity-25 hover:text-gray-200 transition-all duration-500 font-bold tracking-wider">
+            Begin Exploration
           </button>
         </div>
         {/* <h1 className="relative font-sans banner-content text-8xl font-extrabold text-left uppercase text-white w-[400px] min-h-[400px] p-4 bg-gray-900 bg-opacity-50">

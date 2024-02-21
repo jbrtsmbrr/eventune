@@ -26,15 +26,15 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        {/* <body className={`${inter.className}`}>{children}</body> */}
+        <body className={`${inter.className} bg-[#121212]`}>{children}</body>
         {/* <body className={`${roboto.className}`}>{children}</body> */}
-        {/* <body className={`${poppins.className}`}>{children}</body> */}
-        {/* <body className={`${lato.className}`}>{children}</body> */}
+        {/* <body className={`${poppins.className} bg-black`}>{children}</body> */}
+        {/* <body className={`${lato.className} bg-black`}>{children}</body> */}
         {/* <body className={`${playfairDisplay.className}`}>{children}</body> */}
         {/* <body className={`${nunitoSans.className} bg-black`}>{children}</body> */}
         {/* <body className={`${dmSerifDisplay.className} bg-black`}>{children}</body> */}
         {/* <body className={`${cormorantGaramond.className} bg-black`}>{children}</body> */}
-        <body className={`${inriaSerif.className} bg-black tracking-wider`}>{children}</body>
+        {/* <body className={`${inriaSerif.className} bg-black tracking-wider`}>{children}</body> */}
       </html>
     </ClerkProvider>
 
