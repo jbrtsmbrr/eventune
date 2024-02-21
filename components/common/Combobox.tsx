@@ -35,7 +35,7 @@ const Combobox = ({ options = [], placeholder = "", onChange, value }: ICombobox
           variant="outline"
           // role="multiple"
           aria-expanded={open}
-          className="min-w-full justify-between rounded-none"
+          className="min-w-full justify-between rounded-none bg-gray-900 border-gray-700 text-gray-300 hover:bg-gray-950 hover:text-gray-200"
         >
           {value
             ? options.find((option) => option.value?.toString() === value?.toString())?.label
