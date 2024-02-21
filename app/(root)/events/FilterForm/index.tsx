@@ -150,6 +150,7 @@ const FilterForm = () => {
                       mode="range"
                       // fromDate={field.value?.from}
                       // toDate={field.value?.to}
+                      // @ts-ignore
                       selected={field.value}
                       onSelect={(value) => {
                         console.log("trig")
