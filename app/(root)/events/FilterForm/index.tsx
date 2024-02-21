@@ -120,7 +120,7 @@ const FilterForm = () => {
             name="date_range"
             render={({ field }) => (
               <FormItem className="flex flex-col min-w-[200px]">
-                <FormLabel className="text-white">Date from</FormLabel>
+                <FormLabel className="text-white">Date</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>
