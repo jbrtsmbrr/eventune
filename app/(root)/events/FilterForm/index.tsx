@@ -113,76 +113,78 @@ const FilterForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="grid md:grid-cols-4 w-full grid-cols-1 gap-4 my-8">
-        <FormField
-          control={form.control}
-          name="date_range"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel className="text-white">Date from</FormLabel>
-              <Popover>
-                <PopoverTrigger asChild>
-                  <FormControl>
-                    <Button
-                      variant={"outline"}
-                      // className={cn(
-                      //   "w-[240px] pl-3 text-left font-normal",
-                      //   !field.value && "text-muted-foreground"
-                      // )}
-                      className="min-w-full rounded-none"
-                    >
-                      {field.value?.from && field.value?.to ? (
-                        `${moment(field.value.from).format("YYYY-MM-DD")} - ${moment(field.value.to).format("YYYY-MM-DD")}`
-                      ) : (
-                        <span>Pick a date range</span>
-                      )}
-                      <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      <X className="ml-2 h-4 w-4 opacity-50 hover:opacity-100 hover:text-red-500 z-50" onClick={() => {
-                        console.log("clear")
-                        field.onChange(null)
-                      }} />
-                    </Button>
-                  </FormControl>
-                </PopoverTrigger>
-                <PopoverContent className="w-auto p-0" align="start">
-                  <Calendar
-                    mode="range"
-                    // fromDate={field.value?.from}
-                    // toDate={field.value?.to}
-                    selected={field.value}
-                    onSelect={(value) => {
-                      console.log("trig")
-                      console.log(value)
-                      if ((value?.from) !== null) {
-                        field.onChange({ from: value?.from, to: value?.to ?? value?.from })
-                      }
-                    }}
-                  // disabled={(date) =>
-                  //   date > new Date() || date < new Date("1900-01-01")
-                  // }
-                  // initialFocus
-                  />
-                </PopoverContent>
-              </Popover>
-              {/* <FormDescription>
+      <div className="w-full flex justify-end">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="md:w-1/2 md:flex-row flex-col w-full flex gap-4 my-8 justify-end">
+          <FormField
+            control={form.control}
+            name="date_range"
+            render={({ field }) => (
+              <FormItem className="flex flex-col min-w-[200px]">
+                <FormLabel className="text-white">Date from</FormLabel>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        // className={cn(
+                        //   "w-[240px] pl-3 text-left font-normal",
+                        //   !field.value && "text-muted-foreground"
+                        // )}
+                        className="min-w-full rounded-none"
+                      >
+                        {field.value?.from && field.value?.to ? (
+                          `${moment(field.value.from).format("YYYY-MM-DD")} - ${moment(field.value.to).format("YYYY-MM-DD")}`
+                        ) : (
+                          <span>Pick a date range</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                        <X className="ml-2 h-4 w-4 opacity-50 hover:opacity-100 hover:text-red-500 z-50" onClick={() => {
+                          console.log("clear")
+                          field.onChange(null)
+                        }} />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="range"
+                      // fromDate={field.value?.from}
+                      // toDate={field.value?.to}
+                      selected={field.value}
+                      onSelect={(value) => {
+                        console.log("trig")
+                        console.log(value)
+                        if ((value?.from) !== null) {
+                          field.onChange({ from: value?.from, to: value?.to ?? value?.from })
+                        }
+                      }}
+                    // disabled={(date) =>
+                    //   date > new Date() || date < new Date("1900-01-01")
+                    // }
+                    // initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
+                {/* <FormDescription>
                 Your date of birth is used to calculate your age.
               </FormDescription> */}
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="limit"
-          render={({ field }) => (
-            <FormItem className="flex flex-col">
-              <FormLabel className="text-white">Limit</FormLabel>
-              <Combobox options={limitOptions} placeholder="Select Limit" value={field.value} onChange={field.onChange} />
-            </FormItem>
-          )}
-        />
-        <Button type="submit" className="font-semibold text-xs tracking-wider uppercase bg-white bg-opacity-100 border-2 border-white rounded-none text-black hover:text-white hover:bg-opacity-50 self-end w-fit place-self-end">Filter</Button>
-      </form>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="limit"
+            render={({ field }) => (
+              <FormItem className="flex flex-col min-w-[200px]">
+                <FormLabel className="text-white">Limit</FormLabel>
+                <Combobox options={limitOptions} placeholder="Select Limit" value={field.value} onChange={field.onChange} />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" className="font-semibold text-xs tracking-wider uppercase bg-white bg-opacity-100 border-2 border-white rounded-none text-black hover:text-white hover:bg-opacity-50 self-end w-fit">Filter</Button>
+        </form>
+      </div>
     </Form>
   )
 }
