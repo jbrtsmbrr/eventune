@@ -21,7 +21,7 @@ import {
 interface ICombobox {
   options?: any[],
   placeholder?: string,
-  value: string | number,
+  value: string | number | null | undefined,
   onChange: (value: ICombobox["value"]) => void
 }
 
