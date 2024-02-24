@@ -17,9 +17,9 @@ import { createEvent } from '@/lib/database/actions/event.action'
 import { Checkbox } from '@/components/ui/checkbox'
 import ImageUploader from './ImageUploader'
 import { useUploadThing } from '@/utils/uploadthing'
-import { useSession, useUser } from '@clerk/nextjs'
-import { IEvent } from '@/lib/types/event'
+import { useSession } from '@clerk/nextjs'
 import SpotifyArtistSelect from './SpotifySelect'
+import Pricing from './Pricing'
 
 const initialValues = {
   name: "",
@@ -28,14 +28,16 @@ const initialValues = {
   endDate: new Date(),
   imageUrl: "",
   location: "",
-  price: 0,
+  // price: 0,
+  pricing: [
+    { label: 'Standard', amount: 0 }
+  ],
   isFree: false,
   artists: [],
 }
 
-const EventForm = ({ event }: { event?: IEvent }) => {
+const EventForm = () => {
   const { isLoaded, session } = useSession();
-  // const { isLoaded, user } = useUser();
   const [files, setFiles] = useState<File[]>([]);
   const eventForm = useForm<z.infer<typeof EventSchemaValidator>>({
     resolver: zodResolver(EventSchemaValidator),
@@ -197,7 +199,7 @@ const EventForm = ({ event }: { event?: IEvent }) => {
           )}
         />
 
-        <FormField
+        {/* <FormField
           control={eventForm.control}
           name="price"
           render={({ field }) => (
@@ -208,23 +210,38 @@ const EventForm = ({ event }: { event?: IEvent }) => {
                   <Input type="number" value={field.value} placeholder='Ticket Price' autoComplete='off'
                     className='text-sm bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 text-gray-300 outline-0 p-0 h-[3ch]'
                     onChange={e => field.onChange(+e.target.value)} />
-                  <FormField name="isFree" control={eventForm.control} render={({ field: isFreeField }) => (<FormItem>
-                    <FormControl>
-                      <div className='flex items-center gap-3'>
+                  <FormField name="isFree" control={eventForm.control} render={({ field: isFreeField }) => (
+                    <FormItem>
+                      <FormControl>
+                        <div className='flex items-center gap-3'>
 
-                        <label className='whitespace-nowrap cursor-pointer text-sm text-gray-300' htmlFor='is-free-chb'>Free Ticket?</label>
-                        <Checkbox className='w-5 h-5 border-2 border-purple-500' name="isFree" id="is-free-chb" checked={isFreeField.value} onCheckedChange={isFreeField.onChange} />
-                      </div>
-                    </FormControl>
-                  </FormItem>)}
+                          <label className='whitespace-nowrap cursor-pointer text-sm text-gray-300' htmlFor='is-free-chb'>Free Ticket?</label>
+                          <Checkbox className='w-5 h-5 border-2 border-purple-500' name="isFree" id="is-free-chb" checked={isFreeField.value} onCheckedChange={isFreeField.onChange} />
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
                   />
                 </div>
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        />
-        <Button type="submit" disabled={eventForm.formState.isSubmitting} className='z-50 w-full text-sm bg-purple-900 hover:bg-purple-800'>{eventForm.formState.isSubmitting ? "Submitting..." : "Create Event"}</Button>
+        /> */}
+
+        <FormField
+          name="pricing"
+          control={eventForm.control}
+          render={({ field, fieldState, formState }) => (
+            <FormItem>
+              <Pricing
+                value={field.value}
+                onChange={field.onChange}
+                errors={fieldState.error}
+              />
+            </FormItem>
+          )} />
+        <Button type="submit" disabled={eventForm.formState.isSubmitting} className='z-50 w-full text-sm bg-purple-900 hover:bg-purple-800' onClick={() => console.log(eventForm.getValues("pricing"))}>{eventForm.formState.isSubmitting ? "Submitting..." : "Create Event"}</Button>
       </form>
     </Form>
   )

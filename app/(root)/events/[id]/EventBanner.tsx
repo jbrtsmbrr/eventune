@@ -19,7 +19,7 @@ const EventBanner = ({ event }: { event: IEvent }) => {
     const order = {
       eventTitle: event.name,
       eventId: event._id,
-      price: event.price,
+      price: event.pricing[0].amount,
       isFree: event.isFree,
       buyerId: "testuserid",
       imageUrl: event.imageUrl
@@ -49,15 +49,13 @@ const EventBanner = ({ event }: { event: IEvent }) => {
             <p className='font-bold uppercase text-gray-200'>about</p>
             <p className='text-gray-300 max-w-[45ch]'>{event.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, sit soluta dolorem ratione ipsum culpa vero dignissimos delectus corporis earum corrupti explicabo similique cumque non id natus nostrum et at.</p>
           </div>
-          <div className='flex items-center gap-6'>
-            <div>
-              <p className='text-white font-bold'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(event.price)}</p>
-              <p className="text-gray-300">Standard</p>
-            </div>
-            <div>
-              <p className='text-white font-bold'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(event.price + 300)}</p>
-              <p className="text-gray-300">VIP</p>
-            </div>
+          <div className='flex items-center gap-2'>
+            {event.pricing.map(price => (
+              <div key={`pricing---${price.label}`} className='bg-white/10 py-2 px-4 min-w-[135px] border border-white/10 cursor-pointer hover:border-white/70'>
+                <p className='text-white font-bold tracking-wide'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(price.amount)}</p>
+                <p className="text-gray-300">{price.label}</p>
+              </div>
+            ))}
           </div>
         </div>
         <form action={onCheckout} method="post" className='relative flex gap-4 items-center justify-center w-fit'>

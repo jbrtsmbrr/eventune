@@ -33,7 +33,7 @@ const EventCard = ({ event }: { event: IEvent }) => {
           <p className="text-xs">{event.isFree ? "FREE" : `${new Intl.NumberFormat("ph-PH", {
             style: "currency",
             currency: "PHP"
-          }).format(event.price)}`}</p>
+          }).format(event.pricing[0].amount)}`}</p>
         </div>
       </div>
     </div>
