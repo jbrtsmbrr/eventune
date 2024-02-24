@@ -14,7 +14,7 @@ export const checkoutOrder = async (order: any) => {
             currency: 'php',
             unit_amount: price,
             product_data: {
-              name: order.eventTitle,
+              name: order.eventTitle + ` - ${order.ticketType}`,
               images: [order.imageUrl]
             }
           },

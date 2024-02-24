@@ -6,27 +6,15 @@ import { loadStripe } from '@stripe/stripe-js'
 import moment from 'moment'
 import Image from 'next/image'
 import React from 'react'
+import Checkout from './Checkout'
 
 const EventBanner = ({ event }: { event: IEvent }) => {
 
   // Make sure to call `loadStripe` outside of a component’s render to avoid
   // recreating the `Stripe` object on every render.
-  loadStripe(
-    process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
-  );
-
-  const onCheckout = async () => {
-    const order = {
-      eventTitle: event.name,
-      eventId: event._id,
-      price: event.pricing[0].amount,
-      isFree: event.isFree,
-      buyerId: "testuserid",
-      imageUrl: event.imageUrl
-    }
-
-    await checkoutOrder(order);
-  }
+  // loadStripe(
+  //   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  // );
 
   return (
     <div className='relative lg:grid md:grid-cols-8 min-h-4/5 w-full gap-6 flex flex-col'>
@@ -49,21 +37,19 @@ const EventBanner = ({ event }: { event: IEvent }) => {
             <p className='font-bold uppercase text-gray-200'>about</p>
             <p className='text-gray-300 max-w-[45ch]'>{event.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, sit soluta dolorem ratione ipsum culpa vero dignissimos delectus corporis earum corrupti explicabo similique cumque non id natus nostrum et at.</p>
           </div>
-          <div className='flex items-center gap-2'>
+          <Checkout event={event} />
+          {/* <div className='flex items-center gap-2'>
             {event.pricing.map(price => (
               <div key={`pricing---${price.label}`} className='bg-white/10 py-2 px-4 min-w-[135px] border border-white/10 cursor-pointer hover:border-white/70'>
                 <p className='text-white font-bold tracking-wide'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(price.amount)}</p>
                 <p className="text-gray-300">{price.label}</p>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
-        <form action={onCheckout} method="post" className='relative flex gap-4 items-center justify-center w-fit'>
-          {/* <Button className='group mt-6 uppercase font-serif px-4 py-2 shadow-lg bg-white border-2 border-white hover:bg-opacity-100 hover:text-white transition-all duration-500 text-sm text-black rounded-none ease-in-out delay-150 tracking-widest'>
-            <span className="block md:group-hover:translate-y-5 duration-0">Book Ticket</span>
-          </Button> */}
+        {/* <form action={onCheckout} method="post" className='relative flex gap-4 items-center justify-center w-fit'>
           <BaseButton className='mt-6'>Book Ticket</BaseButton>
-        </form>
+        </form> */}
       </div>
       {/* <div className="flex-1 h-2/3 w-full flex flex-col items-center justify-center gap-8 backdrop-blur-2xl p-8 border border-white border-opacity-20 bg-black bg-opacity-45">
         <div className='md:hidden h-[300px] w-full relative shadow-lg'>
