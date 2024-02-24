@@ -5,7 +5,6 @@ import { connect } from "..";
 import Event from "../models/event.model";
 import User from "../models/user.model";
 import ArtistEvent from "../models/event_artist.model";
-import { IEventProps } from "@/app/(root)/events/page";
 import moment from "moment";
 
 const saveArtists = async (artist: any) => {

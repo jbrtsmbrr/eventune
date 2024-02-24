@@ -3,6 +3,11 @@ import { IUser } from "../database/models/user.model";
 import { ArtistSchema } from "../validator";
 import { IArtistRaw } from "@/utils/spotify/Spotify";
 
+export interface Price {
+  label: string;
+  amount: number
+}
+
 export interface IEvent {
   _id?: string,
   name: string;
@@ -11,7 +16,7 @@ export interface IEvent {
   endDate: Date;
   imageUrl: string;
   location: string;
-  price: number;
+  pricing: Price[];
   isFree: boolean;
   modifiedAt: Date,
   organizer: IUser,
@@ -27,7 +32,8 @@ export interface IEventCreateParams {
   endDate: Date;
   imageUrl: string;
   location: string;
-  price: number;
+  // price: number;
+  pricing: Array<Price>
   isFree: boolean;
   organizer: string;
   artists: Array<z.infer<typeof ArtistSchema>>

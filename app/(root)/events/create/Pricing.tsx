@@ -1,54 +1,54 @@
 "use client"
 
 import { Button } from '@/components/ui/button';
-import { FormControl, FormItem, FormLabel } from '@/components/ui/form';
+import { FormControl, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Price } from '@/lib/types/event';
 import { Minus } from 'lucide-react';
-import React, { useState } from 'react'
+import React from 'react'
+import { FieldError } from 'react-hook-form';
 
-interface Price {
-  label: string;
-  amount: number
+interface IPricingProps {
+  value: Price[];
+  onChange: (prices: Price[]) => void;
+  errors: FieldError | undefined;
 }
 
-const Pricing = () => {
-  const [prices, setPrices] = useState<Price[]>([
-    { label: "Standard", amount: 0 },
-  ]);
+const Pricing = ({ value, onChange, errors }: IPricingProps) => {
 
-  const addPricing = () => setPrices(prices => ([
-    ...prices,
-    { label: "", amount: 0 }
-  ]))
+  const addPricing = () => {
+    onChange([
+      ...value,
+      { label: "", amount: 0 }
+    ]);
+  }
 
   const deletePricing = (item: Price) => {
-    if (prices.length === 1) return;
-    setPrices(prices => {
-      const pricesCopy = [...prices]
-      const priceIndex = pricesCopy.findIndex((value) => item === value)
-      pricesCopy.splice(priceIndex, 1);
+    if (value.length === 1) return;
+    const pricesCopy = [...value]
+    const priceIndex = pricesCopy.findIndex((value) => item === value)
+    pricesCopy.splice(priceIndex, 1);
 
-      return [...pricesCopy];
-    })
+    onChange(pricesCopy)
   }
 
   const handlePricingChange = ({ label, amount, index }: { label: string, amount: number, index: number }) => {
-    setPrices(prices => {
-      const pricesCopy = [...prices];
-      pricesCopy[index].amount = amount;
-      pricesCopy[index].label = label;
-      return pricesCopy;
-    })
+    const pricesCopy = [...value];
+    pricesCopy[index].amount = amount;
+    pricesCopy[index].label = label;
+    onChange(pricesCopy)
   }
 
   return (
     <div className='space-y-4'>
-      <div>
-        {prices.map((price, index) => (
-          <FormItem key={`pricing--${price.index}`}>
-            {/* <FormLabel className='text-gray-400'>Pricing {index + 1}</FormLabel> */}
-            <div className='flex items-center justify-center gap-2'>
-              <FormControl className="flex-grow">
+      <FormItem>
+        {value.map((price, index) => (
+          <div
+            key={`pricing---${index}`}
+            className='flex items-center justify-center gap-2'
+          >
+            <FormControl className="flex-1">
+              <div>
                 <div className='flex items-center gap-2 input-event-bg p-2 px-4 rounded-sm input-event-shadow'>
                   <Input
                     type='text'
@@ -64,8 +64,12 @@ const Pricing = () => {
                     className='text-sm bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 text-gray-300 outline-0 p-0 h-[3ch]'
                   />
                 </div>
-              </FormControl>
-              <FormControl className="flex-1">
+                <p className='text-sm text-red-600 my-2 h-[0.875rem]'>
+                  {errors && errors[index]?.label && `Please enter a valid label.`}</p>
+              </div>
+            </FormControl>
+            <FormControl className="flex-1">
+              <div>
                 <div className='flex items-center gap-2 input-event-bg p-2 px-4 rounded-sm input-event-shadow'>
                   <Input
                     placeholder='Enter Amount'
@@ -82,18 +86,22 @@ const Pricing = () => {
                     }}
                     className='text-sm bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 text-gray-300 outline-0 p-0 h-[3ch]' />
                 </div>
-              </FormControl>
-              <Minus
-                color='red'
-                cursor='pointer'
-                size="28px"
-                onClick={() => deletePricing(price)}
-                className='hover:bg-red-100/25 rounded-full p-1 transition duration-200 ease-in-out'
-              />
-            </div>
-          </FormItem>
+                <p className='text-sm text-red-600 my-2 h-[0.875rem]'>
+                  {errors && errors[index]?.amount && `Please enter a valid amount.`}
+                </p>
+              </div>
+            </FormControl>
+            <Minus
+              color='red'
+              cursor='pointer'
+              size="28px"
+              onClick={() => deletePricing(price)}
+              className='hover:bg-red-100/25 rounded-full p-1 transition duration-200 ease-in-out'
+            />
+          </div>
         ))}
-      </div>
+        {/* <FormMessage /> */}
+      </FormItem>
       <Button
         type='button'
         onClick={() => addPricing()}
