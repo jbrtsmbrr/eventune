@@ -17,7 +17,7 @@ const EventBanner = ({ event }: { event: IEvent }) => {
   // );
 
   return (
-    <div className='relative lg:grid md:grid-cols-8 min-h-4/5 w-full gap-6 flex flex-col'>
+    <div className='relative lg:grid md:grid-cols-8 min-h-4/5 w-full lg:gap-8 gap-6 flex flex-col'>
       <div className='relative xl:col-span-3 lg:col-span-4 lg:h-full lg:min-h-0 min-h-[250px] lg:aspect-auto md:aspect-square lg:block hidden'>
         <Image src={event.imageUrl} fill alt={event.imageUrl}
           objectFit='cover' className='h-full w-full' />
