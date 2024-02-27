@@ -1,4 +1,4 @@
-import { IOption } from "@/app/(root)/events/create/SpotifySelect";
+import { IOption } from "@/app/(root)/events/create/Form/SpotifySelect";
 import { useEffect, useState } from "react";
 import { MultiValue } from "react-select";
 import Spotify from "./Spotify";
