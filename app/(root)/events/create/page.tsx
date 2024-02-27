@@ -1,5 +1,5 @@
 import React from 'react'
-import EventForm from './EventForm'
+import EventForm from './Form/EventForm'
 import { RedirectToSignIn, SignedIn, SignedOut } from "@clerk/nextjs";
 
 const page = () => {
