@@ -14,7 +14,8 @@ const nextConfig = {
         protocol: "https",
         hostname: "i.scdn.co" // Spotify API
       },
-    ]
+    ],
+    unoptimized: process.env.NEXT_PUBLIC_ENVIRONMENT === "development"
   },
   env: {
     NEXT_PUPLIC_SPOTIFY_CLIENT_ID: process.env.NEXT_PUPLIC_SPOTIFY_CLIENT_ID,
