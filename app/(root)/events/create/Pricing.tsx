@@ -65,6 +65,7 @@ const Pricing = ({ value, onChange, errors }: IPricingProps) => {
                   />
                 </div>
                 <p className='text-sm text-red-600 my-2 h-[0.875rem]'>
+                  {/* @ts-ignore */}
                   {errors && errors[index]?.label && `Please enter a valid label.`}</p>
               </div>
             </FormControl>
@@ -87,6 +88,7 @@ const Pricing = ({ value, onChange, errors }: IPricingProps) => {
                     className='text-sm bg-transparent border-none focus-visible:ring-0 focus-visible:ring-offset-0 placeholder:text-gray-400 text-gray-300 outline-0 p-0 h-[3ch]' />
                 </div>
                 <p className='text-sm text-red-600 my-2 h-[0.875rem]'>
+                  {/* @ts-ignore */}
                   {errors && errors[index]?.amount && `Please enter a valid amount.`}
                 </p>
               </div>
