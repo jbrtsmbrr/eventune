@@ -4,10 +4,10 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 const navigations = [
-  { name: "Trendings", route: "/trendings" },
+  { name: "Home", route: "/" },
   { name: "Events", route: "/events" },
-  { name: "Contact", route: "/contact" },
-  { name: "Artists", route: "/artists" }
+  { name: "Artists", route: "/artists" },
+  { name: "Contact", route: "/contact" }
 ]
 
 const Navigations = () => {
@@ -16,9 +16,14 @@ const Navigations = () => {
   return (
     <ul className="md:flex gap-8 hidden">
       {navigations.map((item) => {
-        const isActive =  pathname.includes(item.route);
+        let isActive = false;
+        if (item.route === "/") {
+          isActive = item.route === pathname;
+        } else if (item.route !== "/")
+          isActive = pathname.includes(item.route)
+
         return <li key={`item-${item.name}`}>
-          <Link href={item.route} className={`after:top-0 after:left-0 after:z-50 after:mix-blend-difference after:text-white after:absolute after:h-full after:w-full h-fit w-fit text-sm relative ${isActive ? "font-semibold text-purple-600" : "font-normal"}`}>{item.name}</Link>
+          <Link href={item.route} className={`text-gray-400 hover:text-gray-300 h-fit w-fit text-xs relative uppercase tracking-wider font-semibold  ${isActive ? "!text-white" : "font-normal"}`}>{item.name}</Link>
         </li>
       })}
     </ul>
