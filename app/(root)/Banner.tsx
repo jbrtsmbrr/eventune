@@ -25,18 +25,24 @@ const Banner = () => {
   return (
     <div className="banner" ref={overlayElementRef} style={{
       background: 'url(/assets/backgrounds/tyler-quick-CRIFa4B1Ozk-unsplash.jpg)',
-      height: "100vh",
+      height: "90vh",
       backgroundPosition: `35% calc(51% - ${0 * 0.55}px)`,
       backgroundRepeat: "no-repeat",
       position: "relative",
-      backgroundSize: "cover"
+      backgroundSize: "cover",
+      clipPath: 'polygon(100% 0, 100% 94%, 86% 100%, 71% 94%, 52% 100%, 29% 97%, 10% 100%, 0 95%, 0 0)'
     }}>
       {/* <div className="absolute h-full w-full bg-purple-950 bg-opacity-15"></div> */}
       <div className="z-10 absolute w-full top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] p-8 box-border flex items-center flex-col gap-8">
-        <div className="lg:w-1/3 md:w-1/2 flex flex-col md:items-center md:text-center z-50">
-          <p className="text-7xl text-white uppercase font-extrabold tracking-tight mb-2">
-            Welcome to Eventune
-          </p>
+        <div className="group lg:w-1/3 md:w-1/2 flex flex-col md:items-center md:text-center z-50">
+          <div>
+            <p className="md:text-6xl text-3xl text-white uppercase font-extrabold tracking-widest mb-2">
+              Welcome to
+            </p>
+            <p className="md:text-9xl text-7xl text-white uppercase font-extrabold tracking-tight mb-2 flex">
+              <b className="block transform origin-top-right -rotate-[18deg] -translate-x-2 translate-y-[2px] group-hover:!translate-x-0 group-hover:!translate-y-0 group-hover:!rotate-0 transition-all duration-200 delay-150">e</b>ventun<b className="group-hover:!translate-x-0 md:-translate-x-3 -translate-x-2 transition-all duration-200">e</b>
+            </p>
+          </div>
           <p className="text-gray-300 italic uppercase">
             Never miss another music festival!
           </p>
