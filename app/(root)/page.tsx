@@ -100,7 +100,7 @@ export default async function Home() {
       <h1 className="md:text-7xl text-3xl font-extrabold text-center capitalize my-10 text-white">
         Have any question?
       </h1>
-      <Accordion type="single" collapsible className="2xl:w-2/3 w-full relative left-1/2 -translate-x-1/2 text-white md:text-4xl">
+      <Accordion type="single" collapsible className="2xl:w-2/3 w-full relative left-1/2 -translate-x-1/2 text-white md:text-4xl md:space-y-4">
         <AccordionItem value="item-1">
           <AccordionTrigger className="uppercase md:tracking-tight md:text-4xl hover:no-underline hover:text-purple-700">Is it accessible?</AccordionTrigger>
           <AccordionContent className="md:text-xl">
