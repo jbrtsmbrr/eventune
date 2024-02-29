@@ -1,6 +1,8 @@
 "use client"
 
+import { ArrowUpRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef } from "react";
 
 const Banner = () => {
@@ -31,16 +33,21 @@ const Banner = () => {
     }}>
       {/* <div className="absolute h-full w-full bg-purple-950 bg-opacity-15"></div> */}
       <div className="z-10 absolute w-full top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] p-8 box-border flex items-center flex-col gap-8">
-        <div className="lg:w-1/3 md:w-1/2 md:text-center z-50 text-left">
+        <div className="lg:w-1/3 md:w-1/2 flex flex-col md:items-center md:text-center z-50">
           <p className="text-7xl text-white uppercase font-extrabold tracking-tight mb-2">
             Welcome to Eventune
           </p>
           <p className="text-gray-300 italic uppercase">
             Never miss another music festival!
           </p>
-          <button className="group mt-6 uppercase px-4 py-2 shadow-lg bg-white border-2 border-white hover:bg-black hover:bg-opacity-25 hover:text-gray-200 transition-all duration-500 font-bold tracking-wider">
-            Begin Exploration
-          </button>
+          <Link href="/events" className="w-fit">
+            <button className="group mt-6 uppercase pl-7 pr-2 py-2 shadow-lg bg-white/15 border-2 border-white hover:bg-black hover:bg-opacity-5 hover:text-gray-200 transition-all duration-500 font-bold tracking-wider rounded-full flex items-center gap-4">
+              <span className="text-white tracking-widest">Get a ticket</span>
+              <span className="p-3 flex items-center justify-center bg-white rounded-full">
+                <ArrowUpRight color="black" size={20} className="group-hover:scale-125 transform ease-in-out duration-150" />
+              </span>
+            </button>
+          </Link>
         </div>
         {/* <h1 className="relative font-sans banner-content text-8xl font-extrabold text-left uppercase text-white w-[400px] min-h-[400px] p-4 bg-gray-900 bg-opacity-50">
           Don't miss the gigs!
