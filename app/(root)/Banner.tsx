@@ -40,8 +40,8 @@ const Banner = () => {
           <p className="text-gray-300 italic uppercase">
             Never miss another music festival!
           </p>
-          <Link href="/events">
-            <button className="group mt-6 uppercase pl-7 pr-2 py-2 shadow-lg bg-white/15 border-2 border-white hover:bg-black hover:bg-opacity-5 hover:text-gray-200 transition-all duration-500 font-bold tracking-wider rounded-full flex items-center gap-4 w-fit">
+          <Link href="/events" className="w-fit">
+            <button className="group mt-6 uppercase pl-7 pr-2 py-2 shadow-lg bg-white/15 border-2 border-white hover:bg-black hover:bg-opacity-5 hover:text-gray-200 transition-all duration-500 font-bold tracking-wider rounded-full flex items-center gap-4">
               <span className="text-white tracking-widest">Get a ticket</span>
               <span className="p-3 flex items-center justify-center bg-white rounded-full">
                 <ArrowUpRight color="black" size={20} className="group-hover:scale-125 transform ease-in-out duration-150" />
