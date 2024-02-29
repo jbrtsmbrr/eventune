@@ -7,6 +7,13 @@ import { getAllEvents } from "@/lib/database/actions/event.action";
 import { IEvent } from "@/lib/types/event";
 import BaseButton from "@/components/common/BaseButton";
 import Link from "next/link";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+
 
 export default async function Home() {
 
@@ -55,7 +62,7 @@ export default async function Home() {
     </div>
 
     {/* News */}
-    <div className="p-8 min-h-screen">
+    <div className="px-8 py-4 h-fit">
       <h1 className="text-6xl font-extrabold text-center uppercase my-10 text-white">
         Latest <span className="text-purple-600">News</span>
       </h1>
@@ -86,6 +93,35 @@ export default async function Home() {
           View All
         </BaseButton>
       </div>
+    </div>
+
+    {/* FAQ */}
+    <div className="px-8 py-28">
+      <h1 className="md:text-7xl text-3xl font-extrabold text-center capitalize my-10 text-white">
+        Have any question?
+      </h1>
+      <Accordion type="single" collapsible className="2xl:w-2/3 w-full relative left-1/2 -translate-x-1/2 text-white md:text-4xl">
+        <AccordionItem value="item-1">
+          <AccordionTrigger className="uppercase md:tracking-tight md:text-4xl hover:no-underline hover:text-purple-700">Is it accessible?</AccordionTrigger>
+          <AccordionContent className="md:text-xl">
+            Yes. It adheres to the WAI-ARIA design pattern.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-2">
+          <AccordionTrigger className="uppercase md:tracking-tight md:text-4xl hover:no-underline hover:text-purple-700">Is it styled?</AccordionTrigger>
+          <AccordionContent className="md:text-xl">
+            Yes. It comes with default styles that matches the other
+            components&apos; aesthetic.
+          </AccordionContent>
+        </AccordionItem>
+        <AccordionItem value="item-3">
+          <AccordionTrigger className="uppercase md:tracking-tight md:text-4xl hover:no-underline hover:text-purple-700">Is it animated?</AccordionTrigger>
+          <AccordionContent className="md:text-xl">
+            Yes. It&apos;s animated by default, but you can disable it if you
+            prefer.
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </div>
   </div>
 }
