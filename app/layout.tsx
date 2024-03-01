@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Inter, Roboto, Poppins, Lato, Playfair_Display, Nunito_Sans, DM_Serif_Display, Cormorant_Garamond, Inria_Serif } from 'next/font/google'
+import { Inter, Roboto, Poppins, Lato, Playfair_Display, Nunito_Sans, DM_Serif_Display, Cormorant_Garamond, Inria_Serif, Antonio } from 'next/font/google'
 import './globals.css'
 import { ClerkProvider } from "@clerk/nextjs";
 
@@ -12,6 +12,7 @@ const nunitoSans = Nunito_Sans({ subsets: ["cyrillic"] })
 const dmSerifDisplay = DM_Serif_Display({ weight: "400", subsets: ['latin'] })
 const cormorantGaramond = Cormorant_Garamond({ weight: '400', subsets: ['latin', 'vietnamese', 'cyrillic', 'cyrillic-ext'] })
 const inriaSerif = Inria_Serif({ weight: '400', subsets: ['latin'] })
+const antonio = Antonio({ weight: '100', subsets: ["latin", "latin-ext"] })
 
 export const metadata: Metadata = {
   title: 'Eventune',
@@ -26,7 +27,8 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${inter.className} bg-[#121212]`}>{children}</body>
+        <body className={`${inter.className} bg-black`}>{children}</body>
+        {/* <body className={`${antonio.className} bg-[#121212]`}>{children}</body> */}
         {/* <body className={`${roboto.className}`}>{children}</body> */}
         {/* <body className={`${poppins.className} bg-black`}>{children}</body> */}
         {/* <body className={`${lato.className} bg-black`}>{children}</body> */}
