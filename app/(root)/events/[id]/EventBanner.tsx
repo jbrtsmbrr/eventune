@@ -18,7 +18,7 @@ const EventBanner = ({ event }: { event: IEvent }) => {
 
   return (
     <div className='relative lg:grid md:grid-cols-8 min-h-4/5 w-full lg:gap-8 gap-6 flex flex-col'>
-      <div className='relative xl:col-span-3 lg:col-span-4 lg:h-full lg:min-h-0 min-h-[250px] lg:aspect-auto md:aspect-square lg:block hidden'>
+      <div className='relative xl:col-span-3 lg:col-span-4 lg:h-full lg:min-h-0 min-h-[250px] lg:aspect-square md:aspect-square lg:block hidden'>
         <Image src={event.imageUrl} fill alt={event.imageUrl}
           objectFit='cover' className='h-full w-full' />
       </div>
@@ -26,23 +26,23 @@ const EventBanner = ({ event }: { event: IEvent }) => {
         <div className='flex flex-col gap-10'>
           <div>
             <p className='text-white text-4xl font-semibold tracking-wider mb-3'>{event.name}</p>
-            <p className='text-gray-300 text-md'>
+            <p className='text-gray-200 text-md'>
               {/* {moment(event.startDate).format("DD MMMM YYYY,")}<br />
           {moment(event.startDate).format("dddd hh:MM A")} */}
               {moment(event.startDate).format("DD MMMM, ddd hh:mm A")}
             </p>
-            <p className='text-gray-300 text-md'>{event.location}</p>
+            <p className='text-gray-200 text-md'>{event.location}</p>
           </div>
           <div>
             <p className='font-bold uppercase text-gray-200'>about</p>
-            <p className='text-gray-300 max-w-[45ch]'>{event.description} Lorem ipsum dolor sit, amet consectetur adipisicing elit. Est, sit soluta dolorem ratione ipsum culpa vero dignissimos delectus corporis earum corrupti explicabo similique cumque non id natus nostrum et at.</p>
+            {event.description ? <p className='text-gray-200 max-w-[45ch]'>{event.description}</p> : <p className='text-gray-400 max-w-[45ch]'>No Description.</p>}
           </div>
           <Checkout event={event} />
           {/* <div className='flex items-center gap-2'>
             {event.pricing.map(price => (
               <div key={`pricing---${price.label}`} className='bg-white/10 py-2 px-4 min-w-[135px] border border-white/10 cursor-pointer hover:border-white/70'>
                 <p className='text-white font-bold tracking-wide'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(price.amount)}</p>
-                <p className="text-gray-300">{price.label}</p>
+                <p className="text-gray-200">{price.label}</p>
               </div>
             ))}
           </div> */}
@@ -66,13 +66,13 @@ const EventBanner = ({ event }: { event: IEvent }) => {
           <p className='text-gray-400 text-center'>{event.location}</p>
         </div>
         <div className='flex gap-4 items-stretch justify-center w-full'>
-          <div className='flex-1 border border-dashed border-gray-200 hover:border-gray-300 p-3 px-4 bg-white bg-opacity-15 cursor-pointer'>
+          <div className='flex-1 border border-dashed border-gray-200 hover:border-gray-200 p-3 px-4 bg-white bg-opacity-15 cursor-pointer'>
             <p className='font-bold text-white'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(event.price)}</p>
-            <p className='font-semibold text-gray-300 uppercase text-sm'>Standard price</p>
+            <p className='font-semibold text-gray-200 uppercase text-sm'>Standard price</p>
           </div>
-          <div className='flex-1 border border-dashed border-gray-500 hover:border-gray-300 p-3 px-4 bg-gray-50 bg-opacity-5 cursor-pointer'>
+          <div className='flex-1 border border-dashed border-gray-500 hover:border-gray-200 p-3 px-4 bg-gray-50 bg-opacity-5 cursor-pointer'>
             <p className='font-bold text-white'>{Intl.NumberFormat("PH-ph", { currency: "PHP", style: "currency" }).format(event.price + 300)}</p>
-            <p className='font-semibold text-gray-300 uppercase text-sm'>VIP price</p>
+            <p className='font-semibold text-gray-200 uppercase text-sm'>VIP price</p>
           </div>
         </div>
       </div> */}
